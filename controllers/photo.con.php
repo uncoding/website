@@ -21,7 +21,7 @@ if (!defined('CLASS_PHOTO'))
     $resultSet3=$this->mydb->execsql($sql1);
     if (!empty($resultSet3[0])) $this->cout['photo_catatitle']=$resultSet3[0]['shw_title'];
   }
-                        $orderby = ' order by mgr asc, log_time desc ';
+                        $orderby = ' order by mgr_sort asc, log_time desc ';
          
       $index=empty($_REQUEST['p'])?1:$_REQUEST['p'];
       $size=empty($_REQUEST['numPerPage'])?12:$_REQUEST['numPerPage'];
