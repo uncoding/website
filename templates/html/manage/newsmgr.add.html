@@ -1,0 +1,44 @@
+<!--修改样式2 p元素自适应宽度 start-->
+<div class="pageContent">
+    <form method="post" action="/b2wms.php?act=newsmgr.newsadd" class="pageForm required-validate" enctype="multipart/form-data" onsubmit="return iframeCallback(this, dialogAjaxDone)">
+    <input type="hidden" name="acttype" value="{$cout.acttype}">
+    <input type="hidden" name="id" value="{$cout.vinfo.id}">
+<div class="pageFormContent" layoutH="56">
+<div style="clear:both;"> <label>分类</label>
+            <select name="item.cid" class="combox">
+        {foreach key=key item=item from=$cout.news_category}
+        <option value="{$key}" {if $cout.vinfo.cid == $key}selected{/if} >{$item}</option>
+        {/foreach}
+      </select>
+    </div>
+<div style="clear:both;"> <label>标题</label>
+            <input name="item.shw_title" type="text" value="{$cout.vinfo.shw_title}"  />
+      </div>
+<div style="clear:both;"> <label>图片上传</label>
+            {if $cout.vinfo.img_up !=''}<img src="/html/upload/100_100_{$cout.vinfo.img_up}" height="40" border="0" />{/if}<input type="file" name="img_up" />
+    </div>
+<div style="clear:both;"> <label>内容</label>
+            <textarea class="editor" name="item.shw_content" rows="15" cols="80" tools="full" pagetag upLinkUrl="/b2wms.php?act=manage.upload" upImgUrl="/b2wms.php?act=manage.upload" upFlashUrl="/b2wms.php?act=manage.upload" upMediaUrl="/b2wms.php?act=manage.upload" >{$cout.vinfo.shw_content}</textarea>
+      </div>
+<div style="clear:both;"> <label>排序值</label>
+            <input name="item.mgr_sort" type="text" value="{$cout.vinfo.mgr_sort}"  />
+      </div>
+<div style="clear:both;"> <label>状态 0:禁用,1:启用</label>
+          <select name="item.mgr_status" class="combox">
+        {foreach key=key item=item from=$cout.mgr_status}
+        <option value="{$key}" {if $cout.vinfo.mgr_status == $key}selected{/if} >{$item}</option>
+        {/foreach}
+    </select>
+      </div>
+</div>
+<div class="formBar">
+<ul>
+<li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
+<li>
+     <div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+</li>
+</ul>
+</div>
+</form>
+</div>
+<!--修改样式2 end-->

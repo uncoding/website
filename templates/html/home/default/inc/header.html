@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{if $cout.vinfo.shw_title !=''}{$cout.vinfo.shw_title}-{/if}{$cout.companyname}</title>
+<link type="text/css" rel="stylesheet" href="{$cout.skin}/css/index.css" />
+<script type="text/javascript" src="{$cout.skin}/js/jquery-1.7.2.js"></script>
+<script type="text/javascript">
+{literal}
+$(document).ready(function(){
+  $('.menulist li').hover(function(){
+    $(this).children('ul').show();
+    },
+    function(){
+      $(this).children('ul').hide();})
+})
+{/literal}
+</script>
+<script type="text/javascript" src="{$cout.skin}/js/DD_belatedPNG_0.0.8a-min.js">
+</script>
+<script type="text/javascript">
+{literal}
+ DD_belatedPNG.fix('#topl,#menu');
+
+ </script>
+  <script type="text/javascript">
+$(document).ready(function(){
+  var li=$('#my1').children('li');
+  var count=li.length;
+  var one=Math.round(1200/count);
+  var son=Math.round((one-116)/2);
+  $.each(li,function(i,val){
+    li.eq(i).css({'width':one});
+    li.find('ul').css({'left':son}); //作用：修正二级菜单的绝对定位问题
+  });
+})
+{/literal}
+</script>
+</head>

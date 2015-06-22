@@ -1,0 +1,49 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" type="text/css" href="resources/style.css">
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<script type="text/javascript" language="javascript" src="javascript/CleftPage/cleftpage.js"></script>
+<script language="JavaScript" type="text/javascript" src="javascript/My97DatePicker/WdatePicker.js"></script>
+
+<script language="JavaScript" type="text/javascript" src="javascript/myajax.js"></script>
+<script language="JavaScript" type="text/javascript" src="javascript/global.js"></script>
+
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<form id="formsearchform" name="formsearchform" method="post" action="b2wms.php?act=admin.changepwd">
+<table width="100%" border="0" cellpadding="4" cellspacing="1" bgcolor="#CEDFF5" class="n_tab" id="searchform">
+    <tr bgcolor="#FFFFFF"> 
+      <td width="100" height="20" align="right" nowrap bgcolor="#DFE8F6">登录帐号：</td>
+      <td nowrap bgcolor="#DFE8F6"> {$cout.vinfo.uname} </td>
+      <td width="100" align="right" nowrap bgcolor="#DFE8F6">原密码：</td>
+      <td nowrap bgcolor="#DFE8F6"><input type="password" name="old_pwd" value=""></td>
+    </tr>
+    <tr bgcolor="#FFFFFF"> 
+      <td width="100" height="20" align="right" nowrap bgcolor="#DFE8F6">新密码：</td>
+      <td nowrap bgcolor="#DFE8F6">
+ 		<input type="password" name="new_pwd" value="">
+      </td>
+      <td width="100" align="right" nowrap bgcolor="#DFE8F6">重复密码：</td>
+      <td nowrap bgcolor="#DFE8F6"> 
+        <input type="password" name="re_new_pwd" value="">
+        </td>
+    </tr>
+    <tr bgcolor="#FFFFFF"> 
+      <td height="30" colspan="4" align="center" bgcolor="#DFE8F6">
+<input type="submit" name="Submit" value="修改"></td>
+    </tr>
+</table>
+
+<table width="100%" height="16" border="0" cellpadding="0" cellspacing="0" bgcolor="#CEDFF5" class="n_tab">
+  <tr>
+    <td height="16" align="right" valign="middle" bgcolor="#DFE8F6"><font color="red">{$cout.errormsg}</font>
+    <a href="javascript:void(0)" onClick="changeFormStatus()"> 
+      <img src="/resources/icon-grid.gif" width="16" height="16" border="0" align="absmiddle" title="隐藏/显示"/></a> 
+      <a href="javascript:void(0)" onclick="help()"><img src="/resources/gif/14.gif" width="16" height="16" border="0" align="absmiddle" title="帮助"/></a>
+    </td>
+  </tr>
+</table>
+</form>
+<div id="help_body" style="display:none;">
+</div>
+</body>
+</html>

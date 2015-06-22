@@ -1,0 +1,11 @@
+<?xml  version="1.0" encoding="utf-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{section name=i loop=$cout.vlist}
+<url>
+<loc>{$cout.vlist[i].url}</loc>
+<lastmod>{$smarty.now|date_format:"%Y-%m-%d"}</lastmod>
+<changefreq>daily</changefreq>
+<priority>1</priority>
+</url>
+{/section}
+</urlset>

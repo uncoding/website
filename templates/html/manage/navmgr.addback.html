@@ -1,0 +1,27 @@
+<!--修改样式2 p元素自适应宽度 start-->
+<div class="pageContent">
+    <form method="post" action="/b2wms.php?act=navmgr.navaddback" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+    <input type="hidden" name="id" value="{$cout.vinfo.id}">
+<table class="searchContent" >
+<tr>           
+    <td> <label>状态 0:禁用,1:启用</label></td>
+    <td>
+    <select name="item.mgr_status" class="combox">
+        {foreach key=key item=item from=$cout.mgr_status}
+        <option value="{$key}" {if $cout.vinfo.mgr_status == $key}selected{/if} >{$item}</option>
+        {/foreach}
+    </select>
+          </td>
+</tr>
+</table> 
+<div class="formBar">
+<ul>
+<li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
+<li>
+     <div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+</li>
+</ul>
+</div>
+</form>
+</div>
+<!--修改样式2 end-->

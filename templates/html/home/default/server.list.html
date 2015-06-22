@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+{include file="default/inc/head.html"}
+<body  class="body_product">
+<!--Logo 开始-->
+{include file="default/inc/logo.html"}
+<!--Logo 结束--><!--导航条 开始-->
+{include file="default/inc/nav.html"}
+<!--导航条 结束--><!--幻灯片 开始-->
+{include file="default/inc/banner.html"}
+<!--幻灯片 结束-->
+<div id="header_1"></div>
+<!--当前位置开始-->
+
+<!--当前位置结束-->
+<div id="main">
+<div class="product">
+
+	{foreach from=$cout.phoCls key=ikey item=item1 name=item1}  
+	  <div class="left_title"><span class="more"><a href="/index.php?act=server.server&cid={$item1.id}" ></a></span>
+	    <h2>{$item1.shw_title}</h2>
+	  </div>
+	  <div class="left_body">
+	    <ul class="gridlist">
+	        {foreach from=$cout.cms_cass item=item2 name=item2}
+	        {foreach from=$item2 item=item3 key=jkey name=x} 
+	            {if $item1.id==$item3.cid}
+	          		<li style="width:100%;">
+				        <div>{$item3.shw_title}</div>
+				        <div>{$item3.shw_content}</div>
+			    	</li>
+	            {/if}
+	        {/foreach}
+	        {/foreach}
+			</ul>
+	    <div class="clear"></div>
+	  </div>
+	  <div class="left_bottom"></div>
+	{/foreach}
+
+</div>
+</div>
+<!--版权 开始-->
+{include file="default/inc/footer.html"}
+{include file="default/inc/tool.html"}
+<!--版权 结束-->
+</body>
+</html>
+
+

@@ -1,0 +1,26 @@
+{include file="default/inc/header.html"}
+<body>
+<div id="container">
+{include file="default/inc/top.html"}
+{include file="default/inc/nav.html"}
+  <div id="wrap">
+  	{include file="default/inc/banner.html"}
+{include file="default/inc/left.html"}
+    <div id="right" class="right">   
+  <div id="wrapper1" class="left">
+            <h3 id="bt2">
+                <span class="left">学校动态 》 {$cout.vinfo.shw_title}</span>
+             </h3>
+             <div id="con" class="xxdtlist">
+             <div id="content">
+             <h3>{$cout.vinfo.shw_title}</h3>
+             <p class="but"><div class="jiathis_style"><a class="jiathis_button_qzone"></a><a class="jiathis_button_tsina"></a><a class="jiathis_button_tqq"></a><a class="jiathis_button_renren"></a><a class="jiathis_button_kaixin001"></a><a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a><a class="jiathis_counter_style"></a></div><script type="text/javascript" src="http://v3.jiathis.com/code_mini/jia.js?uid=1369288757867828" charset="utf-8"></script></p>
+             <p class="bg2">发布于：{$cout.vinfo.log_time}  </p>
+             
+             <p>{$cout.vinfo.shw_intro}</p>　　
+             </div>
+        </div>
+    </div>  
+      </div>
+
+{include file="default/inc/footer.html"}

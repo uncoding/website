@@ -1,0 +1,99 @@
+  <div class="pageHeader">
+	<form onsubmit="return navTabSearch(this);" id="pagerForm" action="/b2wms.php?act=admin.loginfo" method="post">
+	<input type="hidden" name="pageNum" value="1" />
+	<input type="hidden" name="numPerPage" value="1000" />
+	<input type="hidden" name="orderField" value="{$cout.orderField}" />
+  <input type="hidden" name="orderDirection" value="{$cout.orderDirection}" />
+	<div class="searchBar" >
+         <table class="searchContent" >
+         	<tr>
+         	
+        <td><label>选择用户：</label> 	         
+      <select name="userid" >
+      <option value="all">全部用户</option>   
+                {section name=i loop=$cout.adminusers}
+          			<option value="{$cout.adminusers[i].userId}">{$cout.adminusers[i].loginId}</option>
+				{/section}
+		
+	</select></td>
+	<td><label>操作模块：</label> 	 
+      <select name="type">
+      			<option value="all">全部模块</option>
+                {section name=i loop=$cout.authinfo}
+          	<option value="{$cout.authinfo[i].code}">{$cout.authinfo[i].name}</option>
+				{/section}
+      	  </select></td>
+				<td><label>开始日期：</label><input type="text" name="date1" class="date required textInput"   readonly="true" value="{$cout.datepost1}"/></td>
+				<td><label>结束日期：</label><input type="text" name="date2" class="date required textInput"   readonly="true" value="{$cout.datepost2}"/></td>
+         	</tr>
+         </table>  
+		<div class="subBar">
+			<ul>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit" id="choosedata">查询</button></div></div></li>
+			</ul>
+		</div>
+	</div>
+	</form>
+</div>
+<div class="pageContent" id="pagecontent">
+
+<div class="tabs">
+      <div class="tabsHeader">
+           <div class="tabsHeaderContent">
+                  <ul>
+                       
+                       
+                  </ul>
+            </div>
+    </div>
+       <div class="tabsContent" style="height:550px;">
+            <div>
+     
+<div id="w_list_print">
+	<table class="list" width="100%" targetType="navTab" asc="asc" desc="desc" layoutH="116">
+		<thead>
+			<tr id="merchantinfo">
+				<th width="100" >用户</th>						
+				<th width="100">操作模块</th>
+				<th width="100">操作时间</th>
+				<th width="100" >操作类型</th>					
+				<th width="100" >描述</th>
+				
+			</tr>
+		</thead>
+		<tbody>
+			
+		{section name=i loop=$cout.vlist}
+    		
+    		{assign var="admin_id" value=$cout.vlist[i].staff_id}
+    		{assign var="type" value=$cout.vlist[i].code}
+	
+			<tr target="sid_user" >
+				<td>{$cout.adminuserindex[$admin_id]}</td>	
+				<td>{$cout.authinfoindex[$type]}</td>	
+				<td>{$cout.vlist[i].log_date}</td>					
+				<td>{$cout.vlist[i].code}</td>	
+				<td>{$cout.vlist[i].log_content}</td>	
+										
+				
+			</tr>
+	{/section}
+		</tbody>
+	</table>
+	</div>
+          
+ <div class="panelBar" >
+		<div class="pages">
+			<span>显示</span>
+			<select name="numPerPage" onchange="navTabPageBreak({literal}{numPerPage:this.value}{/literal})">									
+			
+				<option value="1000" selected>1000</option>
+				
+			</select>
+			<span>条，共{$cout.info.totalCount}条</span>
+		</div>
+		<div class="pagination" targetType="navTab" totalCount="{$cout.info.totalCount}" numPerPage="{$cout.info.size}" pageNumShown="10" currentPage="{$cout.info.nowPage}"></div>
+
+	</div>    
+</div>
+</div>

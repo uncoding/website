@@ -1,0 +1,76 @@
+
+<!--显示列表样式1 start-->
+  <div class="pageHeader">
+     <form onsubmit="return navTabSearch(this);" id="pagerForm" action="/b2wms.php?act=contactmgr.contact" method="post">
+     <input type="hidden" name="pageNum" value="1" />
+     <input type="hidden" name="numPerPage" value="{$cout.info.size}" />
+     <input type="hidden" name="orderField" value="{$cout.orderField}" />
+  <input type="hidden" name="orderDirection" value="{$cout.orderDirection}" />
+     
+     <div class="searchBar" >
+        <table class="searchContent" >
+          <tr>
+          <td><label>标题：</label><input type="text" name="shw_title" class="required textInput" value="{$cout.shw_title}"/></td>
+                    </tr>
+        </table> 
+          <div class="subBar">
+               <ul>
+                    <li><div class="buttonActive"><div class="buttonContent"><button type="submit" id="choosedata">查询</button></div></div></li>
+               </ul>
+          </div>
+     </div>
+     </form>
+</div>
+<div class="pageContent" id="pagecontent">
+     <div class="panelBar">
+          <ul class="toolBar">
+               <li><a class="add" href="/b2wms.php?act=contactmgr.contactadd&acttype=0" target="dialog" mask="true"  width="800" height="480"><span>新增</span></a></li>
+          </ul>
+     </div>
+     <div id="w_list_print">
+     <table class="list" width="100%" targetType="navTab" asc="asc" desc="desc" layoutH="116">
+          <thead>
+<tr id="contact">
+<th width="100">标题</th>
+<th width="100">备注</th>
+<th width="100">录入人</th>
+<th width="100">添加时间</th>
+<th width="100">操作</th> 
+</tr>
+          </thead>
+          <tbody>
+               
+{section name=i loop=$cout.vlist}
+ 
+<tr target="sid_user" >
+<td>{$cout.vlist[i].shw_title|truncate:40:''}</td>
+<td>{$cout.vlist[i].shw_remark|truncate:40:''}</td>
+<td>{$cout.vlist[i].log_user|truncate:40:''}</td>
+<td>{$cout.vlist[i].log_time}</td>
+ 
+<td width="100">
+<a target="dialog" mask="true" href="/b2wms.php?act=contactmgr.contactadd&acttype=1&id={$cout.vlist[i].id}" width="800" height="480" class="btnEdit" >修改</a>  <a warn="请选择内容项" title="你确定要删除吗？" target="ajaxTodo" href="/b2wms.php?act=contactmgr.contactdel&id={$cout.vlist[i].id}" class="btnDel"><span>删除</span></a><a target="_blank" href="/index.php?act=contact.info&id={$cout.vlist[i].id}" class="btnLook" >预览</a>
+</td>              
+</tr>
+{/section}
+          </tbody>
+     </table>
+     </div>
+<div class="panelBar" >
+     <div class="pages">
+          <span>显示</span>
+          <select name="numPerPage" onchange="navTabPageBreak({literal}{numPerPage:this.value}{/literal})">
+               <option value="20" {if $cout.info.size ==20}selected{/if}>20</option>
+               <option value="50" {if $cout.info.size ==50}selected{/if}>50</option>
+               <option value="100" {if $cout.info.size ==100}selected{/if}>100</option>
+               <option value="200" {if $cout.info.size ==200}selected{/if}>200</option>
+               {if $cout.info.size >200}
+               <option value="$cout.info.size" selected>{$cout.info.size}</option>
+               {/if}
+          </select>
+          <span>条，共{$cout.info.totalCount}条</span>
+     </div>
+     <div class="pagination" targetType="navTab" totalCount="{$cout.info.totalCount}" numPerPage="{$cout.info.size}" pageNumShown="10" currentPage="{$cout.info.nowPage}"></div>
+</div>
+</div>
+<!--显示列表样式1 end-->

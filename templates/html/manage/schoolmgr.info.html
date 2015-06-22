@@ -1,0 +1,30 @@
+<!--详情1 p元素自适应宽度 start-->
+<div class="pageContent">
+<div class="pageFormContent" layoutH="56">
+<p> <label>录入人：</label>
+      {$cout.vinfo.log_user}
+   	
+     
+</p><p> <label>添加时间：</label>
+      {$cout.vinfo.log_time}
+   	
+     
+</p><p> <label>标题：</label>
+      {$cout.vinfo.shw_title}
+   	
+     
+</p><p> <label>内容：</label>
+      {$cout.vinfo.shw_intro}
+   	
+     
+</p></div>
+<div class="formBar">
+     <ul>
+          <li><a target="dialog" mask="true"  width="800" height="480" class="button" href="/b2wms.php?act=schoolmgr.schooladd&acttype=1&id={$smarty.request.id}"><span>更新</span></a></li>
+          <li>
+               <div class="button"><div class="buttonContent"><button type="button" class="close">关闭</button></div></div>
+          </li>
+     </ul>
+</div>
+</div>
+<!--详情1 end-->

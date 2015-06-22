@@ -1,0 +1,94 @@
+
+<!--显示列表样式1 start-->
+  <div class="pageHeader">
+     <form onsubmit="return navTabSearch(this);" id="pagerForm" action="/b2wms.php?act=classifymgr.classify" method="post">
+     <input type="hidden" name="pageNum" value="1" />
+     <input type="hidden" name="numPerPage" value="20" />
+     <input type="hidden" name="orderField" value="{$cout.orderField}" />
+  <input type="hidden" name="orderDirection" value="{$cout.orderDirection}" />
+     
+     <div class="searchBar" >
+        <table class="searchContent" >
+          <tr>
+          <td><label>标题：</label><input type="text" name="shw_title" class="required textInput" value="{$cout.shw_title}"/></td>
+          <td><label>分类</label>
+          <select name="cid" class="combox">
+          {foreach key=key item=item from=$cout.classify_category}
+          <option value="{$key}" {if $cout.cid == $key}selected{/if} >{$item}</option>
+          {/foreach}
+          </select>
+          </td>          </tr>
+        </table> 
+          <div class="subBar">
+               <ul>
+                    <li><div class="buttonActive"><div class="buttonContent"><button type="submit" id="choosedata">查询</button></div></div></li>
+               </ul>
+          </div>
+     </div>
+     </form>
+</div>
+<div class="pageContent" id="pagecontent">
+     <div class="panelBar">
+          <ul class="toolBar">
+               <li><a class="add" href="/b2wms.php?act=classifymgr.classifyadd&acttype=0" target="dialog" mask="true"  width="800" height="480"><span>新增</span></a></li>
+          </ul>
+     </div>
+     <div id="w_list_print">
+     <table class="list" width="100%" targetType="navTab" asc="asc" desc="desc" layoutH="116">
+          <thead>
+<tr id="classify">
+<th width="100">分类标题</th>
+<th width="100">所属父分类</th>
+<th width="10">排序值</th>
+<th width="60">顶级分类所属数据表</th>
+<th width="60">录入人</th>
+<th width="30">状态</th>
+<th width="60">封面</th>
+<th width="20">别名</th>
+<th width="120">对应的显示地址</th>
+<th width="60">操作</th> 
+</tr>
+          </thead>
+          <tbody>
+               
+{section name=i loop=$cout.vlist}
+{assign var="cid" value=$cout.vlist[i].cid}
+{assign var="mgrstatus" value=$cout.vlist[i].mgr_status}
+{assign var="tableurl" value=$cout.vlist[i].mgr_table|replace:"cms_":""}
+<tr target="sid_user" >
+<td>{$cout.vlist[i].shw_title|truncate:40:''}</td>
+<td>{$cout.classify_category[$cid]}</td>
+<td>{$cout.vlist[i].mgr_sort}</td>
+<td>{$cout.vlist[i].mgr_table|truncate:40:''}</td>
+<td>{$cout.vlist[i].log_user|truncate:40:''}</td>
+<td>{$cout.mgr_status[$mgrstatus]}</td>
+<td>{if $cout.vlist[i].img_up !=''}<a class="edit" href="/b2wms.php?act=manage.clipimages&i={$cout.vlist[i].img_up}&r={$cout.classify_ratio[$cid]}" target="_blank"><img src="/html/upload/100_100_{$cout.vlist[i].img_up}" height="40" border="0" /></a>{/if}</td>
+<td>{$cout.vlist[i].shw_other|truncate:40:''}</td>
+<td>/index.php?act={$tableurl}.{$tableurl}&cid={$cout.vlist[i].id}</td>
+<td width="100">
+<a target="dialog" mask="true" href="/b2wms.php?act=classifymgr.classifyadd&acttype=1&id={$cout.vlist[i].id}" width="800" height="480" class="btnEdit" >修改</a>  <!--<a warn="请选择内容项" title="你确定要删除吗？" target="ajaxTodo" href="/b2wms.php?act=classifymgr.classifydel&id={$cout.vlist[i].id}" class="btnDel"><span>删除</span></a>--><a target="_blank" href="/index.php?act=classify.info&id={$cout.vlist[i].id}" class="btnLook" >预览</a>
+</td>              
+</tr>
+{/section}
+          </tbody>
+     </table>
+     </div>
+     <div class="panelBar" >
+          <div class="pages">
+               <span>显示</span>
+               <select name="numPerPage" onchange="navTabPageBreak({literal}{numPerPage:this.value}{/literal})">
+                    <option value="20" {if $cout.info.size ==20}selected{/if}>20</option>
+                    <option value="50" {if $cout.info.size ==50}selected{/if}>50</option>
+                    <option value="100" {if $cout.info.size ==100}selected{/if}>100</option>
+                    <option value="200" {if $cout.info.size ==200}selected{/if}>200</option>
+                    {if $cout.info.size >200}
+                    <option value="$cout.info.size" selected>{$cout.info.size}</option>
+                    {/if}
+               </select>
+               <span>条，共{$cout.info.totalCount}条</span>
+          </div>
+          <div class="pagination" targetType="navTab" totalCount="{$cout.info.totalCount}" numPerPage="{$cout.info.size}" pageNumShown="10" currentPage="{$cout.info.nowPage}"></div>
+
+     </div>
+</div>
+<!--显示列表样式1 end-->

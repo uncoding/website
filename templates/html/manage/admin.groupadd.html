@@ -1,0 +1,40 @@
+
+<div class="pageContent">
+	<form method="post" action="/b2wms.php?act=admin.groupadd" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<div class="pageFormContent" layoutH="56">
+    	<input type="hidden" name="acttype" value="{$cout.acttype}">
+     	<input type="hidden" name="id" value="{$cout.vinfo.id}">
+     	<input type='hidden' name="gid" value="{$smarty.request.gid}" />
+     	<table class="searchContent" >
+<tr>			
+     <td> <label>分组名：</label>
+		<input name="item.name" type="text" class="required"  value="{$cout.vinfo.name}"  />
+		</td>
+</tr>
+<tr>			
+     <td>
+	  <table border="0" cellspacing="0" cellpadding="0"><tr>
+		{foreach key=key item=item name=rank from=$cout.manage_rank.limit}
+		<td>　<input type="checkbox" name="rank[]" value="{$key}" {return_array_checked arr=$cout.vinfo.rank sub=$key} {if $key=='manage.nologin,manage.main'}checked{/if} >&nbsp;{$item}</td>
+		{if $smarty.foreach.rank.iteration is div by 4}</tr>
+		<tr>{/if}
+		{/foreach}</tr></table>
+				
+		
+		</td>
+</tr> 
+
+</table> 
+		</div>
+		<div class="formBar">
+		<label style="float:left"><input type="checkbox" class="checkboxCtrl" group="rank[]" />全选</label>
+			<ul>
+				<li><div class="button"><div class="buttonContent"><button type="button" class="checkboxCtrl" group="rank[]" selectType="invert">Invert</button></div></div></li>
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
+				<li>
+					<div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+				</li>
+			</ul>
+		</div>
+	</form>
+</div>

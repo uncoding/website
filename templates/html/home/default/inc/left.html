@@ -1,0 +1,53 @@
+<!--
+  	<div id="left" class="left">
+        	
+            
+            <div id="wrapper" class="left wid230">
+                <h3 id="bt">
+                <span class="left">培训课程</span>
+             </h3>
+                <div id="con">
+                <div id="list">
+                <ul>
+{section name=i loop=$cout.train}
+<li><a href="/index.php?act=train.info&id={$cout.train[i].id}">{$cout.train[i].shw_title}</a></li>
+{/section}
+                </ul>
+                </div></div>
+                
+            </div>
+      <div id="wrapper2" class="right wid230">
+            <h3 id="bt">
+                <span class="left">联系我们</span>
+      </h3>
+             <div id="con">
+{$cout.contact.shw_intro|truncate:850:'':0}
+             </div>
+	  </div>
+        </div>
+-->
+    <div id="left" class="left">
+          <div id="wrapper">
+                <h3 id="bt">
+                <span class="left">在线报名</span><span class="right one"><a href="/index.php?act=home.mail"><img src="{$cout.skin}/images/index_26.png" width="48" height="15"/></a></span>
+                </h3>
+                <a href="#"><img src="{$cout.skin}/images/index_21.png" width="228" height="192" /></a>
+            </div>
+            <div id="wrapper">
+            <img src="{$cout.skin}/images/index_24.png" width="230" height="230" />
+            </div>
+            <div id="wrapper" class="left wid230">
+                <h3 id="bt">
+                <span class="left">历程回顾</span><span class="right one"><a href="/index.php?act=course.course"><img src="{$cout.skin}/images/index_26.png" width="48" height="15"/></a></span>
+                </h3>
+                <div id="con">
+                <div id="list">
+                <ul>
+{section name=i loop=$cout.cms_course}
+<li><a href="/index.php?act=course.info&id={$cout.cms_course[i].id}">{$cout.cms_course[i].shw_title}</a></li>
+{/section}
+                </ul>
+                </div></div>
+                
+            </div>
+        </div>

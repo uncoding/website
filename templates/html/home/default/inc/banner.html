@@ -1,0 +1,26 @@
+<div id="banner">
+	<script type="text/javascript" src="/{$cout.skin}/js/jquery.flexslider-min.js"></script><script type="text/javascript">{literal}          $(document).ready(function() {
+    
+                    $('.flexslider').flexslider({
+    
+                            controlNav: true, 
+    
+                            directionNav: false,
+    
+                            animation: "slide",
+    
+                            //manualControls: ".myflexslider .slidenav"
+    
+                        });
+    
+              });
+    
+            {/literal}</script>
+      <div class="flexslider" >
+        <ul class="slides">
+          {section name=i loop=$cout.banner}
+            <li><img src="/html/upload/{$cout.banner[i].img_up}" alt="{$cout.seokeywords}" title="{$cout.seodescription}"  /></li>
+        {/section}
+        </ul>
+      </div>
+</div>

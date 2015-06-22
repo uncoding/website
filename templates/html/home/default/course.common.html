@@ -1,0 +1,58 @@
+<!--左边栏菜单 -->
+<li><a href="b2wms.php?act=coursemgr.course" target="navTab" rel="coursemgr.course">历程回顾</a></li>
+<!--日期格式 -->
+<input name="item.ITEM1" type="text" class="date" value="{$cout.vinfo.ITEM1}"  />
+<!--日期格式 时分秒 -->
+<input name="item.ITEM1" type="text" class="date"  dateFmt="yyyy-MM-dd HH:mm:ss" value="{$cout.vinfo.ITEM1}"  />
+<!--编辑器格式 -->
+<textarea class="editor" name="item.ITEM3" rows="30" cols="100" tools="mfull">{$cout.vinfo.ITEM3}</textarea>
+<!--必填 -->
+class="required"
+
+<!--图片字段显示 -->
+<!--根据分类id取分类数组里的显示名称 -->
+{$cout.course_category[$cout.vinfo.cid]}
+
+<!--根据分类来取当前分类里的数量，多于一条显示列表，1条以内显示内容 -->
+{counter start=0 skip=1 print=false assign=categorynum1}
+{section name=i loop=$cout.vlist}
+{if $cout.vlist[i].cid == 1}
+{counter assign=categorynum1}
+{/if} 
+{/section} 
+{if $categorynum1 < 2}
+	{section name=i loop=$cout.vlist}
+	{if $cout.vlist[i].cid == 1}<p> {$cout.vlist[i].ITEM3}</p>{/if} 
+	{/section}
+{else}
+	{section name=i loop=$cout.vlist}
+	{if $cout.vlist[i].cid == 1}<div><a href="/index.php?act=course.info&id={$cout.vlist[i].id}" title="{$cout.course_category.1}" target="_blank" > {$cout.vlist[i].ITEM2}</a></div>{/if} 
+	{/section}
+{/if} 
+
+<!--包含头，尾文件 -->
+{include file="inc/header.html"}
+{include file="inc/footer.html"}
+<!-- 显示内容-->
+{$cout.vinfo.ITEM2}
+
+<!-- 显示所在位置分类名称-->
+<li>所在位置： 首页 > 历程回顾 > {$cout.course_category.1}</li>
+
+<!--上一页 下一页 翻页-->
+{if $cout.info.totalPageCount>0}
+{$cout.info.totalPageCount|page:$cout.info.size}
+{else}
+无更多内容
+{/if} 
+
+<!--浏览器tap栏加内容标题-->
+<title>{if $cout.vinfo.ITEM2 !=''}{$cout.vinfo.ITEM2}-{/if}{$cout.companyname}</title>
+
+<!--上一篇 -->
+
+<!--下一篇 -->
+
+<!--相关内容列表 -->
+
+

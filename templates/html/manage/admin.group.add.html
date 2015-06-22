@@ -1,0 +1,87 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" type="text/css" href="resources/style.css">
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<script type="text/javascript" language="javascript" src="javascript/CleftPage/cleftpage.js"></script>
+<script language="JavaScript" type="text/javascript" src="javascript/My97DatePicker/WdatePicker.js"></script>
+
+<script language="JavaScript" type="text/javascript" src="javascript/myajax.js"></script>
+<script language="JavaScript" type="text/javascript" src="javascript/global.js"></script>
+<script type="text/javascript" src="/js/jquery/jquery-1.6.1.min.js"></script>
+
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<form id="formsearchform" name="formsearchform" method="post" action="b2wms.php?act=admin.addGroup">
+  <table width="100%" border="0" cellpadding="4" cellspacing="1" bgcolor="#CEDFF5" class="n_tab" id="searchform">
+    <input type="hidden" name="act" value="admin.addGroup">
+    <input type='hidden' name="acttype" value="{$cout.actinfo}" />
+    <input type='hidden' name="gid" value="{$smarty.request.gid}" />
+    <tr bgcolor="#FFFFFF"> 
+      <td width="100" height="20" align="right" nowrap bgcolor="#DFE8F6">分组名：</td>
+      <td nowrap bgcolor="#DFE8F6"> <input type="text" name="admin.group" value="{$cout.vinfo.name}" id="gname"> </td>
+      <td width="100" align="right" nowrap bgcolor="#DFE8F6"></td>
+      <td nowrap bgcolor="#DFE8F6"></td>
+    </tr>
+    <tr bgcolor="#FFFFFF"> 
+      <td width="100" height="20" align="right" nowrap bgcolor="#DFE8F6">允许查看模块：</td>
+      <td colspan="3" nowrap bgcolor="#DFE8F6">
+	  <table border="0" cellspacing="0" cellpadding="0"><tr>
+		{foreach key=key item=item name=rank from=$cout.manage_rank.limit}
+		<td>　<input type="checkbox" name="rank[]" value="{$key}" {return_array_checked arr=$cout.vinfo.rank sub=$key} {if $key=='manage.nologin,manage.main'}checked{/if} >&nbsp;{$item}</td>
+		{if $smarty.foreach.rank.iteration is div by 4}</tr>
+		<tr>{/if}
+		{/foreach}</tr></table>
+	  </td>
+    </tr>
+  	<tr bgcolor="#FFFFFF"> 
+      <td height="30" colspan="4" align="center" bgcolor="#DFE8F6"> 
+      	<input type="button" value="全选" id="chAll">&nbsp;&nbsp;
+      	<input type="button" value="取消" id="chres">&nbsp;&nbsp;
+      	<input type="button" value="反选" id="chfan">
+      </td>
+    </tr>
+    <script type="text/javascript">
+    {literal}
+    $(document).ready(function(){
+    	$("#chAll").click(function(){
+    		$("input[type=checkbox]").each(function(){
+    			$(this).attr("checked",true);
+    		});
+    	});
+    	$("#chres").click(function(){
+    		$("input[type=checkbox]").each(function(){
+    			$(this).attr("checked",false);
+    		});
+    	});
+    	$("#chfan").click(function(){
+    		$("input[type=checkbox]").each(function(){
+    			if($(this).attr("checked")){
+    				$(this).attr("checked",false);
+    			}else{
+    				$(this).attr("checked",true);
+    			}
+    		});
+    	});
+    });
+    {/literal}
+    </script>
+    <tr bgcolor="#FFFFFF"> 
+      <td height="30" colspan="4" align="center" bgcolor="#DFE8F6"> <input type="submit" name="Submit" value="{$cout.submit}"> 
+        <input type="button" name="flashuserlist" value="分组列表" onClick="javascript:location.href='b2wms.php?act=admin.users';"> 
+      </td>
+    </tr>
+  </table>
+
+<table width="100%" height="16" border="0" cellpadding="0" cellspacing="0" bgcolor="#CEDFF5" class="n_tab">
+  <tr>
+    <td height="16" align="right" valign="middle" bgcolor="#DFE8F6"> <font color="red">{$cout.errormsg}</font>
+    <a href="javascript:void(0)" onClick="changeFormStatus()"> 
+      <img src="/resources/icon-grid.gif" width="16" height="16" border="0" align="absmiddle" title="隐藏/显示"/></a>
+      <a href="javascript:void(0)" onclick="help()"><img src="/resources/gif/14.gif" width="16" height="16" border="0" align="absmiddle" title="帮助"/></a> 
+    </td>
+  </tr>
+</table>
+</form>
+<div id="help_body" style="display:none;">
+</div>
+</body>
+</html>

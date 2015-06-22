@@ -1,0 +1,72 @@
+<!--修改样式2 p元素自适应宽度 start-->
+<div class="pageContent">
+    <form method="post" action="/b2wms.php?act=classifymgr.classifyadd" class="pageForm required-validate" enctype="multipart/form-data" onsubmit="return iframeCallback(this, dialogAjaxDone)">
+    <input type="hidden" name="acttype" value="{$cout.acttype}">
+    <input type="hidden" name="id" value="{$cout.vinfo.id}">
+<table class="searchContent" >
+<tr>           
+    <td> <label>分类标题</label></td>
+    <td>
+            <input name="item.shw_title" type="text" value="{$cout.vinfo.shw_title}"  />
+          </td>
+</tr>
+<tr>           
+    <td> <label>所属父分类</label></td>
+    <td>
+            <select name="item.cid" class="combox">
+        {foreach key=key item=item from=$cout.classify_category}
+        <option value="{$key}" {if $cout.vinfo.cid == $key}selected{/if} >{$item}</option>
+        {/foreach}
+      </select>
+        </td>
+</tr>
+<tr>           
+    <td> <label>排序值</label></td>
+    <td>
+            <input name="item.mgr_sort" type="text" value="{$cout.vinfo.mgr_sort}"  />
+          </td>
+</tr>
+<tr>           
+    <td> <label>顶级分类所属数据表</label></td>
+    <td>
+<select name="item.mgr_table" class="combox">
+{foreach key=key item=item from=$cout.classify_table}
+<option value="{$key}" {if $cout.vinfo.mgr_table == $key}selected{/if} >{$item}</option>
+{/foreach}
+</select>
+          </td>
+</tr>
+<tr>           
+    <td> <label>状态 0:禁用,1:启用</label></td>
+    <td>
+          <select name="item.mgr_status" class="combox">
+        {foreach key=key item=item from=$cout.mgr_status}
+        <option value="{$key}" {if $cout.vinfo.mgr_status == $key}selected{/if} >{$item}</option>
+        {/foreach}
+    </select>
+          </td>
+</tr>
+<tr>           
+    <td> <label>封面</label></td>
+    <td>
+            {if $cout.vinfo.img_up !=''}<img src="/html/upload/100_100_{$cout.vinfo.img_up}" height="40" border="0" />{/if}<input type="file" name="img_up" />
+          </td>
+</tr>
+<tr>           
+    <td> <label>别名</label></td>
+    <td>
+            <input name="item.shw_other" type="text" value="{$cout.vinfo.shw_other}"  />
+          </td>
+</tr>
+</table> 
+<div class="formBar">
+<ul>
+<li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
+<li>
+     <div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+</li>
+</ul>
+</div>
+</form>
+</div>
+<!--修改样式2 end-->

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+{include file="default/inc/head.html"}
+<body  class="body_article">
+<!--Logo 开始-->
+{include file="default/inc/logo.html"}
+<!--Logo 结束--><!--导航条 开始-->
+{include file="default/inc/nav.html"}
+<!--导航条 结束--><!--幻灯片 开始-->
+{include file="default/inc/banner.html"}
+<!--幻灯片 结束-->
+<div id="header_1"></div>
+<!--当前位置开始-->
+
+<!--当前位置结束-->
+<div class="article">
+  <ul class="wxlist">
+    <li>
+      <h1>{$cout.vinfo.shw_title}</h1>
+      <div class="InfoTime">{$cout.vinfo.log_time|date_format:"%Y-%m-%d"}</div>
+      <div class="InfoPicture"><img src="/html/upload/{$cout.vinfo.img_up}"  alt="{$cout.seokeywords}" title="{$cout.seodescription}" /></div>
+      <div class="InfoContent">{$cout.vinfo.shw_content}</div>
+    </li>
+  </ul>
+  <div class="comment">
+    <ul class="wxlist">
+      <li>
+        <div class="CommentList">
+          <h1>评论列表</h1>
+        </div>
+        <div class="page"></div>
+        <div class="LeaveComment">
+          <h1>我要评论</h1>
+        </div>
+        <form>
+          <table border="0px" cellpadding="0px" cellspacing="3px" class="comment_table">
+            <tr>
+              <td class="t1">姓名</td>
+              <td class="t2"><input id="gname" name="gname" type="text" value=""  maxlength="100" />
+                <input id="ctitle" name="ctitle" value="{$cout.photo_catatitle}"   type="hidden" maxlength="100"  /></td>
+                <input id="ltitle" name="ltitle" value="{$cout.vinfo.shw_title}"   type="hidden"  maxlength="100"  /></td>
+            </tr>
+            <tr>
+              <td class="t1"><span class="required">评论内容</span></td>
+              <td class="t2"><textarea id="content"  name="content"   ></textarea></td>
+            </tr>
+
+
+            <tr>
+              <td colspan="2"><a id="sendMsg" class="btn" >发表评论</a></td>
+            </tr>
+          </table>
+        </form>
+      </li>
+    </ul>
+  </div>
+  <!--评论列表 结束--></div>
+<!--版权 开始-->
+{include file="default/inc/footer.html"}
+{include file="default/inc/tool.html"}
+<!--版权 结束-->
+</body>
+</html>
+<script type="text/javascript">{literal}
+              $("#sendMsg").click(function(){
+                  var gname = $("#gname").val();
+                  var content = $("#content").val();
+                  var ctitle = $("#ctitle").val();
+                  var ltitle = $("#ltitle").val();
+
+                  if($.trim(gname)  == ''){
+                      alert('姓名不能为空');
+                      $("#gname").focus();
+                      return false;
+                  }
+
+                  if($.trim(content)  == ''){
+                      alert('留言不能为空');
+                      $("#content").focus();
+                      return false;
+                  }
+
+                  var data = {'gname':gname,'content':content,'ctitle':ctitle,'ltitle':ltitle}
+// alert('xxx');
+                $.ajax({
+                    url : '/index.php?act=comment.addInfo', 
+                    type: 'post', 
+                    data: data, 
+                    success:function(msgs){
+                      if(msgs == 'ok'){
+                        alert('留言成功');
+                        $("#gname").val('');
+                        $("#content").val('');
+                      }else{
+                        alert('网络不给力,请稍后重试!');
+                      }
+                      // window.location.reload();
+                    }
+                });
+
+              })
+         {/literal}
+         </script>
+
+
+

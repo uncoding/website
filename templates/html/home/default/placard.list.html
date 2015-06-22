@@ -1,0 +1,43 @@
+{include file="default/inc/header.html"}
+
+<body>
+<div id="container">
+{include file="default/inc/top.html"}
+{include file="default/inc/nav.html"}
+
+  <div id="wrap">
+{include file="default/inc/banner.html"}
+{include file="default/inc/left.html"}
+    <div id="right" class="right">
+  <div id="wrapper1" class="left">
+            <h3 id="bt2">
+                <span class="left">最新公告</span>
+             </h3>
+             <div id="con" class="xxdtlist">
+             <div id="content">
+             <div id="list">
+                <ul>
+{section name=i loop=$cout.vlist}
+<li><a href="/index.php?act=school.info&id={$cout.vlist[i].id}" class="left">{$cout.vlist[i].shw_title}</a><span class="right">{$cout.vlist[i].log_time|date_format:"%Y-%m-%d"}</span></li>
+{/section}
+
+                </ul>
+                </div>
+                
+             </div>
+             <div class="clear"></div>
+                <p id="page"  align="center">
+{if $cout.info.totalPageCount>0}
+{$cout.info.totalPageCount|page:$cout.info.size}
+{else}
+无更多内容
+{/if} 
+                </p>
+        </div>
+		</div>  
+      </div>
+        
+    </div>
+{include file="default/inc/footer.html"}
+
+

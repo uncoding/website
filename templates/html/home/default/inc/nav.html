@@ -1,0 +1,40 @@
+<style>
+{literal}
+#navigation{ overflow:hidden;zoom:1;background:#065751; }
+#navigation li{ float:left; margin-bottom:2px; width:25%;  }
+#navigation li a{ display:block; color:#FFF; padding:0px;}
+#navigation li a:hover,#navigation li a.current{background-color:#fff;}
+
+{/literal}
+</style>
+<div id="nav">
+    <div id="navigation">
+      <table cellspacing="1" cellpadding="0"  align="center">
+        {assign var="nav" value=$cout.nav_category}
+        {assign var="nav2" value=$cout.nav_category}
+        {assign var="nav3" value=$cout.nav_category}
+        {foreach from=$nav key=ikey item=i name=foo}
+        {if $i.lever == 1}
+        <li><a {if $i.isselect == 1}class="current"{/if} href="{$i.link}">{$i.name}</a>
+        {if $i.sub > 0 }
+          <ul class="subnav">
+          {foreach from=$nav2 key=jkey item=j}
+          {if $j.lever == 2 && $j.pid == $i.id}<li><a href="{$j.link}">{$j.name}</a>
+          {if $j.sub > 0 }
+            <ul class="navlist2">
+              {foreach from=$nav3 key=kkey item=k}
+              {if $k.lever == 3 && $k.pid == $j.id}<li><a href="{$k.link}">{$k.name}</a></li>{/if}
+              {/foreach}
+            </ul>
+            {/if}
+          </li>
+          {/if}
+          {/foreach}
+          </ul>
+        {/if}
+        </li>
+        {/if}
+        {/foreach}
+      </table>
+    </div>
+</div>

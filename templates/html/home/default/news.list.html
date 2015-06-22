@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+{include file="default/inc/head.html"}
+<body class="body_article">
+<!--Logo 开始-->
+{include file="default/inc/logo.html"}
+<!--Logo 结束--><!--导航条 开始-->
+{include file="default/inc/nav.html"}
+<!--导航条 结束--><!--幻灯片 开始--><!--幻灯片 结束--><!--当前位置开始-->
+{include file="default/inc/banner.html"}
+<!--当前位置结束-->
+<div id="main">
+<div class="article">
+
+
+	{foreach from=$cout.newsCls key=ikey item=item1 name=item1}  
+	  <div class="left_title"><span class="more"><a href="/index.php?act=news.news&cid={$item1.id}" >更多</a></span>
+	    <h2><a href="/index.php?act=news.news&cid={$item1.id}" >{$item1.shw_title}</a></h2>
+	  </div>
+	  <div class="left_body">
+	    <ul class="textlist">
+	        {foreach from=$cout.cms_cass item=item2 name=item2}
+	        {foreach from=$item2 item=item3 key=jkey name=x} 
+	            {if $item1.id==$item3.cid}
+	          		<li><span class="InfoTime">{$item3.log_time}</span><a  href="/index.php?act=news.info&id={$item3.id}" >{$item3.shw_title}</a></li>
+	            {/if}
+	        {/foreach}
+	        {/foreach}
+			</ul>
+	    <div class="clear"></div>
+	  </div>
+	  <div class="left_bottom"></div>
+	{/foreach}
+
+</div>
+</div>
+<!--版权 开始-->
+{include file="default/inc/footer.html"}
+{include file="default/inc/tool.html"}
+<!--版权 结束-->
+</body>
+</html>

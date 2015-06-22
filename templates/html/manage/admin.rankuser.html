@@ -1,0 +1,80 @@
+
+<div class="pageContent">
+	<form method="post" action="/b2wms.php?act=admin.rankuserpost" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<div class="pageFormContent" layoutH="56">
+    	<input type="hidden" name="acttype" value="{$cout.acttype}">
+     	<input type="hidden" name="userId" value="{$cout.vinfo.userId}">
+     	<table class="searchContent" >
+<tr>			
+     <td> <label>用户名：</label>
+		{$cout.vinfo.loginId}
+		</td>
+</tr>
+<tr>			
+     <td> <label>用户分组：</label>
+		<select name="group" id="group">
+      	<option value=''>select</option>
+      	{section name=group loop=$cout.group}
+      	<option {if $cout.group[group].id==$cout.vinfo.groupId}selected{/if} value="{$cout.group[group].id}">{$cout.group[group].name}</option>
+      	{/section}
+      </select>
+		</td>
+</tr> 
+  <tr > 
+      <td >允许查看模块：
+      
+	  <table border="0" cellspacing="0" cellpadding="0"><tr>
+		{foreach key=key item=item name=rank from=$cout.manage_rank.limit}
+		<td>　<input type="checkbox" name="rank[]"  id="{$item.code}" value="{$key}" {return_array_checked arr=$cout.vinfo.rank sub=$key} {if $key=='manage.nologin,manage.main'}checked{/if} >&nbsp;{$item.name}</td>
+		{if $smarty.foreach.rank.iteration is div by 4}</tr>
+		<tr>{/if}
+		{/foreach}</tr></table>
+	  </td>
+    </tr>
+ <script type="text/javascript">
+    {literal}
+    $(document).ready(function(){
+   
+    	$("#group").change(function(){
+    		var id=$(this).val();
+    		if(id){
+    			$.ajax({ 
+        			type: "GET",
+        			url: "/b2wms.php?act=admin.getGroup",
+        			cache:false,
+        			data: {gid:id}, 
+        			success: function(data){
+        				$("input[type=checkbox]").attr("checked",false);
+        				$.each(data,function (key, vals) {
+        					$('#'+vals).attr('checked',true);
+        				});
+        			},
+        			dataType:'json'
+       			});
+    		}else{
+    			$('input[type=checkbox]').attr('checked',false);
+    			return false;
+    		}
+    	})
+    	$("input[type=checkbox]").change(function(){
+    		$('#group').val('');
+    	});
+    	
+    });
+    {/literal}
+   </script>
+
+</table> 
+		</div>
+		<div class="formBar">
+		<label style="float:left"><input type="checkbox" class="checkboxCtrl" group="rank[]" />全选</label>
+		<ul>
+			<li><div class="button"><div class="buttonContent"><button type="button" class="checkboxCtrl" group="rank[]" selectType="invert">反选</button></div></div></li>
+			<li><div class="buttonActive"><div class="buttonContent"><button type="submit">修改用户</button></div></div></li>
+			<li>
+					<div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+				</li>
+		</ul>
+	</div>
+	</form>
+</div>

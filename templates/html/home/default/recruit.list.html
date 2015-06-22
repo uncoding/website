@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+{include file="default/inc/head.html"}
+<body class="body_job">
+<!--Logo 开始-->
+{include file="default/inc/logo.html"}
+<!--Logo 结束--><!--导航条 开始-->
+{include file="default/inc/nav.html"}
+<!--导航条 结束--><!--幻灯片 开始--><!--幻灯片 结束--><!--当前位置开始-->
+{include file="default/inc/banner.html"}
+<!--当前位置结束-->
+<div id="main">
+<div class="job">
+  <ul class="wxlist">
+  	{section name=i loop=$cout.vlist}
+	    <li>
+	      <div class="JobName">{$cout.vlist[i].shw_title}</div>
+	      <table cellpadding="0" cellspacing="0" border="0" class="job_table">
+	        <tr>
+	          <th>性别要求</th>
+	          <td>{$cout.vlist[i].shw_sex}</td>
+	          <th>年龄要求</th>
+	          <td>{$cout.vlist[i].shw_age}</td>
+	        </tr>
+	        <tr>
+	          <th>薪金待遇</th>
+	          <td>{$cout.vlist[i].shw_money}</td>
+	          <th>语言要求</th>
+	          <td>{$cout.vlist[i].shw_lage}</td>
+	        </tr>
+	        <tr>
+	          <th>招聘人数</th>
+	          <td>{$cout.vlist[i].shw_num}</td>
+	          <th>工作地点</th>
+	          <td>{$cout.vlist[i].shw_place}</td>
+	        </tr>
+	        <tr>
+	          <th>有效期至</th>
+	          <td>{$cout.vlist[i].shw_loger}</td>
+	          <th>学历要求</th>
+	          <td>{$cout.vlist[i].shw_orders}</td>
+	        </tr>
+	        <tr>
+	          <td colspan="4" align="left"><div class="cc_l"> 详细要求：</div>
+	            <div class="cc_m" style="height: 100%"> {$cout.vlist[i].shw_content}</div></td>
+	        </tr>
+
+	        <tr>
+	          <td colspan="4" align="left"><div class="cc_l"> 职位要求：</div>
+	            <div class="cc_m" style="height: 100%"> {$cout.vlist[i].shw_intro}</div></td>
+	        </tr>
+	      </table>
+	    </li>
+    {/section}
+  </ul>
+  <div class="clear"></div>
+</div>
+</div>
+<!--版权 开始-->
+{include file="default/inc/footer.html"}
+{include file="default/inc/tool.html"}
+<!--版权 结束-->
+</body>
+</html>

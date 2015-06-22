@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+{include file="default/inc/head.html"}
+<body class="body_article">
+<!--Logo 开始-->
+{include file="default/inc/logo.html"}
+<!--Logo 结束--><!--导航条 开始-->
+{include file="default/inc/nav.html"}
+<!--导航条 结束--><!--幻灯片 开始-->
+{include file="default/inc/banner.html"}
+<!--幻灯片 结束-->
+<div id="header_1"></div>
+<!--当前位置开始-->
+
+<!--当前位置结束-->
+<div id="main">
+<div class="article">
+  <div class="left_title">
+    <h2><a href="" >{$cout.news_catatitle}</a></h2>
+  </div>
+  <div class="left_body"><!-- 30文章模型  31图片模型  32单页模型  33	链接模型  34视频模型   35下载模型  36产品模型--><!--频道样式微信样式  0默认, 1图文,  2文字,  3橱窗,   4相册--><!-- 文章模型--><!-- 文本样式 列表开始-->
+    <ul class="textlist">
+      <!--循环开始-->
+      {section name=i loop=$cout.vlist}
+        <li><span class="InfoTime">{$cout.vlist[i].log_time|date_format:"%Y-%m-%d"}</span><a  href="/index.php?act=news.info&id={$cout.vlist[i].id}" >{$cout.vlist[i].shw_title}</a></li>
+      {/section}
+      <!--循环结束-->
+    </ul>
+    <!-- 文本样式 列表结束-->
+    <div class="clear"></div>
+    <div class="page">
+             {if $cout.info.totalPageCount>0}
+{$cout.info.totalPageCount|page:$cout.info.size}
+{else}
+无更多内容
+{/if} 
+        </div>
+  </div>
+  <div class="left_bottom"></div>
+</div>
+</div>
+<!--版权 开始-->
+{include file="default/inc/footer.html"}
+{include file="default/inc/tool.html"}
+<!--版权 结束-->
+</body>
+</html>

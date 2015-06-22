@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+{include file="default/inc/head.html"}
+<body class="body_index">
+<!--Logo 开始-->
+{include file="default/inc/logo.html"}
+<!--Logo 结束--><!--导航条 开始-->
+{include file="default/inc/nav.html"}
+<!--导航条 结束--><!--幻灯片 开始-->
+{include file="default/inc/banner.html"}
+<!--幻灯片 结束--><!--当前位置开始--><!--当前位置结束-->
+<div class="index">
+<div id="leftpic">
+  <div class="left_title">
+    <h2><a href="/index.php?act=casese.casese&cid=5" >经典案例</a></h2>
+    <span class="more"><a href="/index.php?act=casese.casese&cid=5" >更多...</a></span></div>
+  <div class="left_body">
+    <ul class="gridlist" >
+      <!--循环开始-->
+      {section name=i loop=$cout.indxCas}
+      		<li><a href="{$cout.indxCas[i].shw_link}">
+	        <div class="InfoPicture"><img src="/html/upload/{$cout.indxCas[i].img_up}" alt="{$cout.seokeywords}" title="{$cout.seodescription}" /></div>
+	        <div class="InfoTitle">{$cout.indxCas[i].shw_title}</div>
+	        </a></li>
+      {/section}
+      <!--循环结束-->
+    </ul>
+  </div>
+    <div class="left_bottom"></div>
+</div>  
+
+ <div id="leftext">
+      <div class="left_title">
+        <h2><a href="/index.php?act=news.news&cid=3" >最新动态</a></h2>
+        <span class="more"><a href="/index.php?act=news.news&cid=3" >更多...</a></span></div>
+      <div class="left_body">
+        <ul class="textlist" >
+          <!--循环开始-->
+          {section name=i loop=$cout.indxNews}
+          	<li><a href="{$cout.indxNews[i].shw_link}" >{$cout.indxNews[i].shw_title}</a></li>
+          {/section}
+          <!--循环结束-->
+        </ul>
+      </div>
+      <div class="left_bottom"></div>
+</div>
+
+
+	<div id="rightpic">     
+	      <div class="left_title">
+	        <h2><a href="/index.php?act=server.server&cid=4" >服务项目</a></h2>
+	        <span class="more"><a href="/index.php?act=server.server&cid=4" >更多...</a></span></div>
+	      <div class="left_body">
+	        <ul class="gridlist" >
+	          <!--循环开始-->
+	          {section name=i loop=$cout.indxSer}
+	          		<li><a href="{$cout.indxSer[i].shw_link}">
+			            <div class="InfoPicture"><img src="/html/upload/{$cout.indxSer[i].img_up}" alt="{$cout.seokeywords}" title="{$cout.seodescription}" /></div>
+			            <div class="InfoTitle">{$cout.indxSer[i].shw_title} </div>
+			            </a>
+			        </li>
+	          {/section}
+	          <!--循环结束-->
+	        </ul>
+	      </div>
+	      <div class="left_bottom"></div>
+	</div>     
+</div>
+<!--版权 开始-->
+{include file="default/inc/footer.html"}
+{include file="default/inc/tool.html"}
+<!--版权 结束-->
+</body>
+</html>

@@ -1,0 +1,76 @@
+{include file="default/inc/header.html"}
+
+<body>
+<div id="container">
+{include file="default/inc/top.html"}
+{include file="default/inc/nav.html"}
+
+  <div id="wrap">
+{include file="default/inc/banner.html"}
+{include file="default/inc/left.html"}
+<!--js处理图片的等比例大小，css处理图片的居中-->
+<script type="text/javascript">
+{literal}
+function AutoResizeImage(maxWidth,maxHeight,objImg){
+	var img = new Image();
+	img.src = objImg.src;
+	var hRatio;
+	var wRatio;
+	var Ratio = 1;
+	var w = img.width;
+	var h = img.height;
+	wRatio = maxWidth / w;
+	hRatio = maxHeight / h;
+	if (maxWidth ==0 && maxHeight==0){
+	Ratio = 1;
+	}else if (maxWidth==0){//
+	if (hRatio<1) Ratio = hRatio;
+	}else if (maxHeight==0){
+	if (wRatio<1) Ratio = wRatio;
+	}else if (wRatio<1 || hRatio<1){
+	Ratio = (wRatio<=hRatio?wRatio:hRatio);
+	}
+	if (Ratio<1){
+	w = w * Ratio;
+	h = h * Ratio;
+	}
+	objImg.height = h;
+	objImg.width = w;
+}
+{/literal}
+</script>
+
+    <div id="right" class="right">   
+  <div id="wrapper1" class="left">
+            <h3 id="bt2">
+                <span class="left">培训课程</span>
+             </h3>
+             <div id="con">
+{section name=i loop=$cout.vlist}
+             	<div id="productquery">
+				<div class="fang" style="width:200px; height: 150px;">
+				<div class="picFit" style="width:200px; height: 150px;">
+					<a href="/index.php?act=train.info&id={$cout.vlist[i].id}">
+                		<img style="line-height:167px;" src="/upload/{$cout.vlist[i].img_up}"  border="0"  onload="AutoResizeImage(200,150,this);">
+                	</a>
+				</div>
+				</div>
+				<a indepth="true" href="/index.php?act=train.info&id={$cout.vlist[i].id}" target="_self" class="prodtitle">{$cout.vlist[i].shw_title}</a>
+				</div>
+{/section}
+
+             </div>
+             <div class="clear"></div>
+             <p id="page"  align="center">
+{if $cout.info.totalPageCount>0}
+{$cout.info.totalPageCount|page:$cout.info.size}
+{else}
+无更多内容
+{/if} 
+             </p>
+		</div>  
+      </div>
+        
+    </div>
+
+{include file="default/inc/footer.html"}

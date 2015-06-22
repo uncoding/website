@@ -1,0 +1,40 @@
+<!--修改样式2 p元素自适应宽度 start-->
+<div class="pageContent">
+    <form method="post" action="/b2wms.php?act=seomgr.seoadd" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+    <input type="hidden" name="acttype" value="{$cout.acttype}">
+    <input type="hidden" name="id" value="{$cout.vinfo.id}">
+<div class="pageFormContent" layoutH="56">
+<div style="clear:both;"> <label>动态URL</label>
+            <input name="item.shw_url" type="text" value="{$cout.vinfo.shw_url}" size=100 />
+      </div>
+<div style="clear:both;"> <label>SEO文件名</label>
+            <input name="item.shw_filename" type="text" class="alphanumeric" value="{$cout.vinfo.shw_filename}" size=100 />
+      </div>
+<div style="clear:both;"> <label>SEO文字标题</label>
+            <input name="item.shw_title" type="text" value="{$cout.vinfo.shw_title}" size=100 />
+      </div>
+<div style="clear:both;"> <label>SEO专用ALT属性</label>
+            <input name="item.shw_alt" type="text" value="{$cout.vinfo.shw_alt}" size=100  />
+      </div>
+<div style="clear:both;"> <label>状态</label>
+          <select name="item.mgr_status" class="combox">
+        {foreach key=key item=item from=$cout.mgr_status}
+        <option value="{$key}" {if $cout.vinfo.mgr_status == $key}selected{/if} >{$item}</option>
+        {/foreach}
+    </select>
+      </div>
+<div style="clear:both;"> <label>SEO路径</label>
+            <input name="item.shw_path" type="text" value="{$cout.vinfo.shw_path}" size=100  />
+      </div>
+</div>
+<div class="formBar">
+<ul>
+<li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
+<li>
+     <div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+</li>
+</ul>
+</div>
+</form>
+</div>
+<!--修改样式2 end-->

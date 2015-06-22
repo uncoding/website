@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+{include file="default/inc/head.html"}
+<body class="body_single">
+<!--Logo 开始-->
+{include file="default/inc/logo.html"}
+<!--Logo 结束--><!--导航条 开始-->
+{include file="default/inc/nav.html"}
+<!--导航条 结束--><!--幻灯片 开始--><!--幻灯片 结束--><!--当前位置开始-->
+{include file="default/inc/banner.html"}
+<!--当前位置结束-->
+<div id="main">
+    <div  class="single">
+      <ul class="subchannellist">
+      	{section name=i loop=$cout.abtCls}
+      		<li><a href="/index.php?act=aboutus.aboutus&cid={$cout.abtCls[i].id}">{$cout.abtCls[i].shw_title}</a></li>
+      	{/section}
+      </ul>
+      <div class="ChannelContent">
+        <p style="text-align: center;">{if $cout.vlist[0].img_up != ''} <img src="/html/upload/{$cout.vlist[0].img_up}" style="width: 710px; height: 326px; margin-top: 10px; margin-bottom: 10px;" />{/if}</p>
+        {$cout.vlist[0].shw_content}
+      </div>
+      <div class="clear"></div>
+    </div>
+</div>
+<!--版权 开始-->
+{include file="default/inc/footer.html"}
+{include file="default/inc/tool.html"}
+<!--版权 结束-->
+</body>
+</html>

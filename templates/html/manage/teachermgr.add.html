@@ -1,0 +1,42 @@
+<!--修改样式2 p元素自适应宽度 start-->
+<div class="pageContent">
+    <form method="post" action="/b2wms.php?act=teachermgr.teacheradd" class="pageForm required-validate" enctype="multipart/form-data" onsubmit="return iframeCallback(this, dialogAjaxDone)">
+    <input type="hidden" name="acttype" value="{$cout.acttype}">
+    <input type="hidden" name="id" value="{$cout.vinfo.id}">
+<table class="searchContent" >
+<tr>           
+    <td> <label>标题</label></td>
+    <td>
+            <input name="item.shw_title" type="text" value="{$cout.vinfo.shw_title}"  />
+          </td>
+</tr>
+<tr>           
+    <td> <label>内容</label></td>
+    <td>
+            <textarea class="editor" name="item.shw_intro" rows="20" cols="100" tools="full" pagetag upLinkUrl="/b2wms.php?act=manage.upload" upImgUrl="/b2wms.php?act=manage.upload" upFlashUrl="/b2wms.php?act=manage.upload" upMediaUrl="/b2wms.php?act=manage.upload" >{$cout.vinfo.shw_intro}</textarea>
+          </td>
+</tr>
+<tr>           
+    <td> <label>首页图片上传</label></td>
+    <td>
+            {if $cout.vinfo.img_up !=''}<img src="/upload/100_100_{$cout.vinfo.img_up}" height="40" border="0" />{/if}<input type="file" name="img_up" />
+          </td>
+</tr>
+<tr>           
+    <td> <label>首页图片标题</label></td>
+    <td>
+            <input name="item.shw_titlea" type="text" value="{$cout.vinfo.shw_titlea}"  />
+          </td>
+</tr>
+</table> 
+<div class="formBar">
+<ul>
+<li><div class="buttonActive"><div class="buttonContent"><button type="submit">保存</button></div></div></li>
+<li>
+     <div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+</li>
+</ul>
+</div>
+</form>
+</div>
+<!--修改样式2 end-->

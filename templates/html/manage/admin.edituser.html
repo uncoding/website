@@ -1,0 +1,44 @@
+
+<div class="pageContent">
+	<form method="post" action="/b2wms.php?act=admin.edituserpost"  class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+		<div class="pageFormContent" layoutH="56">
+    	
+     	<input type="hidden" name="userId" value="{$cout.vinfo.userId}">
+     	<table class="searchContent" >
+<tr>			
+     <td> <label>用户名：</label>
+		{$cout.vinfo.loginId}
+		</td>
+</tr>
+<tr>			
+     <td> <label>姓名：</label>
+		<input name="username" type="text" class="required"  value="{$cout.vinfo.username}"  alt="帐号不能为空"/>
+		</td>
+</tr> 
+<tr>			
+     <td> <label>密码：</label>
+		<input name="login_pass" type="password" class="required"  value="{$cout.vinfo.password}"  alt="密码不能为空"/>
+		</td>
+		
+		<td ><label>状态：</label>
+       <select name="state">{html_options options=$cout.status selected=$cout.vinfo.state} 
+        </select> </td>
+    </tr>
+<tr>			
+     <td> <label>新密码：</label>
+		<input name="newpwd" type="password"  value="" />
+		</td>
+</tr> 
+</table> 
+		</div>
+		<div class="formBar">
+			<ul>
+				<!--<li><a class="buttonActive" href="javascript:;"><span>保存</span></a></li>-->
+				<li><div class="buttonActive"><div class="buttonContent"><button type="submit">修改</button></div></div></li>
+				<li>
+					<div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div>
+				</li>
+			</ul>
+		</div>
+	</form>
+</div>

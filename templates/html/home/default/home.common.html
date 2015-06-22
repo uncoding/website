@@ -1,0 +1,495 @@
+<!--seo选项-->
+<meta name="Keywords" content="{if $cout.vinfo.shw_seokey !=''}{$cout.vinfo.shw_seokey},{/if}{$cout.seokeywords}" >
+<meta name="Description" content="{if $cout.vinfo.shw_seodesc !=''}{$cout.vinfo.shw_seodesc}-{/if}{$cout.seodescription}" >
+
+<!--seo后台功能-->
+<li><a href="b2wms.php?act=seomgr.seo" target="navTab" rel="seomgr.seo">SEO静态处理</a></li>
+<li><a href="b2wms.php?act=seoglobalmgr.seoglobaladd&acttype=1&id=1" target="navTab" rel="seoglobalmgr.seoglobaladd">SEO全局变量配置</a></li>
+
+<!--包含头，尾文件 -->
+{include file="default/inc/header.html"}
+{include file="default/inc/top.html"}
+{include file="default/inc/banner.html"}
+{include file="default/inc/nav.html"}
+{include file="default/inc/left.html"}
+{include file="default/inc/leftnav.html"}
+{include file="default/inc/footer.html"}
+
+<!--导航条 -->
+{section name=i loop=$cout.nav}
+<li><a href="{$cout.nav[i].shw_link}">{$cout.nav[i].shw_title}</a>
+{if $cout.nav[i].sub > 0 }<ul class="navlist1">
+    {section name=j loop=$cout.navsub}
+    {if $cout.nav[i].id == $cout.navsub[j].cid}
+<li><a href="{$cout.navsub[j].shw_link}">{$cout.navsub[j].shw_title}</a>
+    {/if}
+    {/section}</ul>
+{/if}
+</li>
+{/section}
+
+<!--产品左侧导航 -->
+{section name=i loop=$cout.cms_classify}
+<li><a href="/index.php?act=photo.photo&cid={$cout.cms_classify[i].id}">{$cout.cms_classify[i].shw_title}</a></li>
+{/section}
+
+<!--三级导航条，带选中效果 -->
+<ul class="navlist" id="my1">
+{assign var="nav" value=$cout.nav_category}
+{assign var="nav2" value=$cout.nav_category}
+{assign var="nav3" value=$cout.nav_category}
+{foreach from=$nav key=ikey item=i}
+{if $i.lever == 1}
+<li {if $i.isselect == 1}class="select"{/if}><a href="{$i.link}">{$i.name}</a>
+{if $i.sub > 0 }
+	<ul class="navlist1">
+	{foreach from=$nav2 key=jkey item=j}
+	{if $j.lever == 2 && $j.pid == $i.id}<li><a href="{$j.link}">{$j.name}</a>
+	{if $j.sub > 0 }
+		<ul class="navlist2">
+			{foreach from=$nav3 key=kkey item=k}
+			{if $k.lever == 3 && $k.pid == $j.id}<li><a href="{$k.link}">{$k.name}</a></li>{/if}
+			{/foreach}
+		</ul>
+		{/if}
+	</li>
+	{/if}
+	{/foreach}
+	</ul>
+{/if}
+</li>
+{/if}
+{/foreach}
+</ul>
+
+<!--关键词在页面上的内容替换功能,只针对text字段 -->
+$this->cout['vinfo']['shw_intro'] = $this->keywordurl($this->cout['vinfo']['shw_intro']);
+
+<!--验证码图片引用 -->
+<img src="/index.php?act=home.authcode">
+php后台判断: if ($_SESSION['authcode'] == $_REQUEST['authcode'])
+
+  
+<!-- cms_linkbtton需要转义字段列表-->
+$resultSet = $this->mydb->execsql("SELECT * FROM `cms_linkbtton` where mgr_status =1 order by mgr_sort desc limit 6");
+if (sizeof($resultSet)>0) foreach ($resultSet as $key => $value) {
+    $value['shw_content'] = stripcslashes($value['shw_content']);
+    $this->cout['cms_linkbtton'][] = $value;
+  }
+
+{section name=i loop=$cout.cms_linkbtton}
+<li><a href="/index.php?act=linkbtton.info&id={$cout.cms_linkbtton[i].id}" class="left">{$cout.cms_linkbtton[i].shw_title}</a><span class="right">{$cout.cms_linkbtton[i].log_time|date_format:"%Y-%m-%d"}</span></li>
+{$cout.cms_linkbtton[i].id}
+{$cout.cms_linkbtton[i].cid}
+{$cout.cms_linkbtton[i].mgr_status}
+{$cout.cms_linkbtton[i].shw_title|truncate:50:''}
+{$cout.cms_linkbtton[i].shw_link|truncate:50:''}
+{$cout.cms_linkbtton[i].img_up|truncate:50:''}
+{$cout.cms_linkbtton[i].log_user|truncate:50:''}
+{$cout.cms_linkbtton[i].log_time}
+{$cout.cms_linkbtton[i].shw_content|truncate:50:''}
+{$cout.cms_linkbtton[i].mgr_sort}
+{/section}
+
+<!-- 单条显示cms_linkbtton内容-->
+$resultSet=$this->mydb->execsql("SELECT * FROM `cms_linkbtton` where cid=1 limit 1"); 
+if (!empty($resultSet[0])){
+	$this->cout['cms_linkbtton'] = $resultSet[0];
+								$this->cout['cms_linkbtton']['shw_content'] = stripcslashes($this->cout['cms_linkbtton']['shw_content']);
+			
+}else{
+	$this->cout['cms_linkbtton'] = array();
+}           
+
+{$cout.cms_linkbtton.id}
+{$cout.cms_linkbtton.cid}
+{$cout.cms_linkbtton.mgr_status}
+{$cout.cms_linkbtton.shw_title}
+{$cout.cms_linkbtton.shw_link}
+{$cout.cms_linkbtton.img_up}
+{$cout.cms_linkbtton.log_user}
+{$cout.cms_linkbtton.log_time}
+{$cout.cms_linkbtton.shw_content}
+{$cout.cms_linkbtton.mgr_sort}
+
+  
+<!-- cms_homephoto需要转义字段列表-->
+$resultSet = $this->mydb->execsql("SELECT * FROM `cms_homephoto` where mgr_status =1 order by mgr_sort desc limit 6");
+if (sizeof($resultSet)>0) foreach ($resultSet as $key => $value) {
+    $value['shw_content'] = stripcslashes($value['shw_content']);
+    $this->cout['cms_homephoto'][] = $value;
+  }
+
+{section name=i loop=$cout.cms_homephoto}
+<li><a href="/index.php?act=homephoto.info&id={$cout.cms_homephoto[i].id}" class="left">{$cout.cms_homephoto[i].shw_title}</a><span class="right">{$cout.cms_homephoto[i].log_time|date_format:"%Y-%m-%d"}</span></li>
+{$cout.cms_homephoto[i].id}
+{$cout.cms_homephoto[i].cid}
+{$cout.cms_homephoto[i].mgr_status}
+{$cout.cms_homephoto[i].shw_title|truncate:50:''}
+{$cout.cms_homephoto[i].shw_link|truncate:50:''}
+{$cout.cms_homephoto[i].img_up|truncate:50:''}
+{$cout.cms_homephoto[i].shw_content|truncate:50:''}
+{$cout.cms_homephoto[i].mgr_sort}
+{$cout.cms_homephoto[i].log_user|truncate:50:''}
+{$cout.cms_homephoto[i].log_time}
+{/section}
+
+<!-- 单条显示cms_homephoto内容-->
+$resultSet=$this->mydb->execsql("SELECT * FROM `cms_homephoto` where cid=1 limit 1"); 
+if (!empty($resultSet[0])){
+	$this->cout['cms_homephoto'] = $resultSet[0];
+						$this->cout['cms_homephoto']['shw_content'] = stripcslashes($this->cout['cms_homephoto']['shw_content']);
+					
+}else{
+	$this->cout['cms_homephoto'] = array();
+}           
+
+{$cout.cms_homephoto.id}
+{$cout.cms_homephoto.cid}
+{$cout.cms_homephoto.mgr_status}
+{$cout.cms_homephoto.shw_title}
+{$cout.cms_homephoto.shw_link}
+{$cout.cms_homephoto.img_up}
+{$cout.cms_homephoto.shw_content}
+{$cout.cms_homephoto.mgr_sort}
+{$cout.cms_homephoto.log_user}
+{$cout.cms_homephoto.log_time}
+
+  
+<!-- cms_aboutus需要转义字段列表-->
+$resultSet = $this->mydb->execsql("SELECT * FROM `cms_aboutus` where mgr_status =1 order by mgr_sort desc limit 6");
+if (sizeof($resultSet)>0) foreach ($resultSet as $key => $value) {
+    $value['shw_content'] = stripcslashes($value['shw_content']);
+    $this->cout['cms_aboutus'][] = $value;
+  }
+
+{section name=i loop=$cout.cms_aboutus}
+<li><a href="/index.php?act=aboutus.info&id={$cout.cms_aboutus[i].id}" class="left">{$cout.cms_aboutus[i].shw_title}</a><span class="right">{$cout.cms_aboutus[i].log_time|date_format:"%Y-%m-%d"}</span></li>
+{$cout.cms_aboutus[i].id}
+{$cout.cms_aboutus[i].cid}
+{$cout.cms_aboutus[i].shw_title|truncate:50:''}
+{$cout.cms_aboutus[i].img_up|truncate:50:''}
+{$cout.cms_aboutus[i].shw_content|truncate:50:''}
+{$cout.cms_aboutus[i].shw_remark|truncate:50:''}
+{$cout.cms_aboutus[i].log_user|truncate:50:''}
+{$cout.cms_aboutus[i].log_time}
+{/section}
+
+<!-- 单条显示cms_aboutus内容-->
+$resultSet=$this->mydb->execsql("SELECT * FROM `cms_aboutus` where cid=1 limit 1"); 
+if (!empty($resultSet[0])){
+	$this->cout['cms_aboutus'] = $resultSet[0];
+				$this->cout['cms_aboutus']['shw_content'] = stripcslashes($this->cout['cms_aboutus']['shw_content']);
+					
+}else{
+	$this->cout['cms_aboutus'] = array();
+}           
+
+{$cout.cms_aboutus.id}
+{$cout.cms_aboutus.cid}
+{$cout.cms_aboutus.shw_title}
+{$cout.cms_aboutus.img_up}
+{$cout.cms_aboutus.shw_content}
+{$cout.cms_aboutus.shw_remark}
+{$cout.cms_aboutus.log_user}
+{$cout.cms_aboutus.log_time}
+
+  
+<!-- cms_server需要转义字段列表-->
+$resultSet = $this->mydb->execsql("SELECT * FROM `cms_server` where mgr_status =1 order by mgr_sort desc limit 6");
+if (sizeof($resultSet)>0) foreach ($resultSet as $key => $value) {
+    $value['shw_content'] = stripcslashes($value['shw_content']);
+    $this->cout['cms_server'][] = $value;
+  }
+
+{section name=i loop=$cout.cms_server}
+<li><a href="/index.php?act=server.info&id={$cout.cms_server[i].id}" class="left">{$cout.cms_server[i].shw_title}</a><span class="right">{$cout.cms_server[i].log_time|date_format:"%Y-%m-%d"}</span></li>
+{$cout.cms_server[i].id}
+{$cout.cms_server[i].cid}
+{$cout.cms_server[i].shw_title|truncate:50:''}
+{$cout.cms_server[i].img_up|truncate:50:''}
+{$cout.cms_server[i].shw_content|truncate:50:''}
+{$cout.cms_server[i].shw_remark|truncate:50:''}
+{$cout.cms_server[i].log_user|truncate:50:''}
+{$cout.cms_server[i].log_time}
+{/section}
+
+<!-- 单条显示cms_server内容-->
+$resultSet=$this->mydb->execsql("SELECT * FROM `cms_server` where cid=1 limit 1"); 
+if (!empty($resultSet[0])){
+	$this->cout['cms_server'] = $resultSet[0];
+				$this->cout['cms_server']['shw_content'] = stripcslashes($this->cout['cms_server']['shw_content']);
+					
+}else{
+	$this->cout['cms_server'] = array();
+}           
+
+{$cout.cms_server.id}
+{$cout.cms_server.cid}
+{$cout.cms_server.shw_title}
+{$cout.cms_server.img_up}
+{$cout.cms_server.shw_content}
+{$cout.cms_server.shw_remark}
+{$cout.cms_server.log_user}
+{$cout.cms_server.log_time}
+
+  
+<!-- cms_contact需要转义字段列表-->
+$resultSet = $this->mydb->execsql("SELECT * FROM `cms_contact` where mgr_status =1 order by mgr_sort desc limit 6");
+if (sizeof($resultSet)>0) foreach ($resultSet as $key => $value) {
+    $value['shw_content'] = stripcslashes($value['shw_content']);
+    $this->cout['cms_contact'][] = $value;
+  }
+
+{section name=i loop=$cout.cms_contact}
+<li><a href="/index.php?act=contact.info&id={$cout.cms_contact[i].id}" class="left">{$cout.cms_contact[i].shw_title}</a><span class="right">{$cout.cms_contact[i].log_time|date_format:"%Y-%m-%d"}</span></li>
+{$cout.cms_contact[i].id}
+{$cout.cms_contact[i].shw_title|truncate:50:''}
+{$cout.cms_contact[i].shw_content|truncate:50:''}
+{$cout.cms_contact[i].shw_remark|truncate:50:''}
+{$cout.cms_contact[i].log_user|truncate:50:''}
+{$cout.cms_contact[i].log_time}
+{/section}
+
+<!-- 单条显示cms_contact内容-->
+$resultSet=$this->mydb->execsql("SELECT * FROM `cms_contact` where cid=1 limit 1"); 
+if (!empty($resultSet[0])){
+	$this->cout['cms_contact'] = $resultSet[0];
+		$this->cout['cms_contact']['shw_content'] = stripcslashes($this->cout['cms_contact']['shw_content']);
+					
+}else{
+	$this->cout['cms_contact'] = array();
+}           
+
+{$cout.cms_contact.id}
+{$cout.cms_contact.shw_title}
+{$cout.cms_contact.shw_content}
+{$cout.cms_contact.shw_remark}
+{$cout.cms_contact.log_user}
+{$cout.cms_contact.log_time}
+
+  
+<!-- cms_news需要转义字段列表-->
+$resultSet = $this->mydb->execsql("SELECT * FROM `cms_news` where mgr_status =1 order by mgr_sort desc limit 6");
+if (sizeof($resultSet)>0) foreach ($resultSet as $key => $value) {
+    $value['shw_content'] = stripcslashes($value['shw_content']);
+    $this->cout['cms_news'][] = $value;
+  }
+
+{section name=i loop=$cout.cms_news}
+<li><a href="/index.php?act=news.info&id={$cout.cms_news[i].id}" class="left">{$cout.cms_news[i].shw_title}</a><span class="right">{$cout.cms_news[i].log_time|date_format:"%Y-%m-%d"}</span></li>
+{$cout.cms_news[i].id}
+{$cout.cms_news[i].cid}
+{$cout.cms_news[i].shw_title|truncate:50:''}
+{$cout.cms_news[i].img_up|truncate:50:''}
+{$cout.cms_news[i].shw_content|truncate:50:''}
+{$cout.cms_news[i].mgr_sort}
+{$cout.cms_news[i].mgr_status}
+{$cout.cms_news[i].log_user|truncate:50:''}
+{$cout.cms_news[i].log_time}
+{/section}
+
+<!-- 单条显示cms_news内容-->
+$resultSet=$this->mydb->execsql("SELECT * FROM `cms_news` where cid=1 limit 1"); 
+if (!empty($resultSet[0])){
+	$this->cout['cms_news'] = $resultSet[0];
+				$this->cout['cms_news']['shw_content'] = stripcslashes($this->cout['cms_news']['shw_content']);
+						
+}else{
+	$this->cout['cms_news'] = array();
+}           
+
+{$cout.cms_news.id}
+{$cout.cms_news.cid}
+{$cout.cms_news.shw_title}
+{$cout.cms_news.img_up}
+{$cout.cms_news.shw_content}
+{$cout.cms_news.mgr_sort}
+{$cout.cms_news.mgr_status}
+{$cout.cms_news.log_user}
+{$cout.cms_news.log_time}
+
+  
+<!-- cms_photo需要转义字段列表-->
+$resultSet = $this->mydb->execsql("SELECT * FROM `cms_photo` where mgr_status =1 order by mgr_sort desc limit 6");
+if (sizeof($resultSet)>0) foreach ($resultSet as $key => $value) {
+    $value['shw_content'] = stripcslashes($value['shw_content']);
+    $this->cout['cms_photo'][] = $value;
+  }
+
+{section name=i loop=$cout.cms_photo}
+<li><a href="/index.php?act=photo.info&id={$cout.cms_photo[i].id}" class="left">{$cout.cms_photo[i].shw_title}</a><span class="right">{$cout.cms_photo[i].log_time|date_format:"%Y-%m-%d"}</span></li>
+{$cout.cms_photo[i].id}
+{$cout.cms_photo[i].cid}
+{$cout.cms_photo[i].shw_title|truncate:50:''}
+{$cout.cms_photo[i].shw_content|truncate:50:''}
+{$cout.cms_photo[i].img_up|truncate:50:''}
+{$cout.cms_photo[i].shw_link|truncate:50:''}
+{$cout.cms_photo[i].mgr_sort}
+{$cout.cms_photo[i].mgr_status}
+{$cout.cms_photo[i].log_user|truncate:50:''}
+{$cout.cms_photo[i].log_time}
+{/section}
+
+<!-- 单条显示cms_photo内容-->
+$resultSet=$this->mydb->execsql("SELECT * FROM `cms_photo` where cid=1 limit 1"); 
+if (!empty($resultSet[0])){
+	$this->cout['cms_photo'] = $resultSet[0];
+			$this->cout['cms_photo']['shw_content'] = stripcslashes($this->cout['cms_photo']['shw_content']);
+								
+}else{
+	$this->cout['cms_photo'] = array();
+}           
+
+{$cout.cms_photo.id}
+{$cout.cms_photo.cid}
+{$cout.cms_photo.shw_title}
+{$cout.cms_photo.shw_content}
+{$cout.cms_photo.img_up}
+{$cout.cms_photo.shw_link}
+{$cout.cms_photo.mgr_sort}
+{$cout.cms_photo.mgr_status}
+{$cout.cms_photo.log_user}
+{$cout.cms_photo.log_time}
+
+  
+<!-- cms_casese需要转义字段列表-->
+$resultSet = $this->mydb->execsql("SELECT * FROM `cms_casese` where mgr_status =1 order by mgr_sort desc limit 6");
+if (sizeof($resultSet)>0) foreach ($resultSet as $key => $value) {
+    $value['shw_content'] = stripcslashes($value['shw_content']);
+    $this->cout['cms_casese'][] = $value;
+  }
+
+{section name=i loop=$cout.cms_casese}
+<li><a href="/index.php?act=casese.info&id={$cout.cms_casese[i].id}" class="left">{$cout.cms_casese[i].shw_title}</a><span class="right">{$cout.cms_casese[i].log_time|date_format:"%Y-%m-%d"}</span></li>
+{$cout.cms_casese[i].id}
+{$cout.cms_casese[i].cid}
+{$cout.cms_casese[i].shw_title|truncate:50:''}
+{$cout.cms_casese[i].shw_content|truncate:50:''}
+{$cout.cms_casese[i].img_up|truncate:50:''}
+{$cout.cms_casese[i].shw_link|truncate:50:''}
+{$cout.cms_casese[i].mgr_sort}
+{$cout.cms_casese[i].mgr_status}
+{$cout.cms_casese[i].log_user|truncate:50:''}
+{$cout.cms_casese[i].log_time}
+{/section}
+
+<!-- 单条显示cms_casese内容-->
+$resultSet=$this->mydb->execsql("SELECT * FROM `cms_casese` where cid=1 limit 1"); 
+if (!empty($resultSet[0])){
+	$this->cout['cms_casese'] = $resultSet[0];
+			$this->cout['cms_casese']['shw_content'] = stripcslashes($this->cout['cms_casese']['shw_content']);
+								
+}else{
+	$this->cout['cms_casese'] = array();
+}           
+
+{$cout.cms_casese.id}
+{$cout.cms_casese.cid}
+{$cout.cms_casese.shw_title}
+{$cout.cms_casese.shw_content}
+{$cout.cms_casese.img_up}
+{$cout.cms_casese.shw_link}
+{$cout.cms_casese.mgr_sort}
+{$cout.cms_casese.mgr_status}
+{$cout.cms_casese.log_user}
+{$cout.cms_casese.log_time}
+
+  
+<!-- cms_comment需要转义字段列表-->
+$resultSet = $this->mydb->execsql("SELECT * FROM `cms_comment` where mgr_status =1 order by mgr_sort desc limit 6");
+if (sizeof($resultSet)>0) foreach ($resultSet as $key => $value) {
+    $value['shw_content'] = stripcslashes($value['shw_content']);
+    $this->cout['cms_comment'][] = $value;
+  }
+
+{section name=i loop=$cout.cms_comment}
+<li><a href="/index.php?act=comment.info&id={$cout.cms_comment[i].id}" class="left">{$cout.cms_comment[i].shw_title}</a><span class="right">{$cout.cms_comment[i].log_time|date_format:"%Y-%m-%d"}</span></li>
+{$cout.cms_comment[i].id}
+{$cout.cms_comment[i].shw_cid|truncate:50:''}
+{$cout.cms_comment[i].shw_lid|truncate:50:''}
+{$cout.cms_comment[i].shw_title|truncate:50:''}
+{$cout.cms_comment[i].shw_content|truncate:50:''}
+{$cout.cms_comment[i].mgr_status}
+{$cout.cms_comment[i].log_user|truncate:50:''}
+{$cout.cms_comment[i].log_time}
+{/section}
+
+<!-- 单条显示cms_comment内容-->
+$resultSet=$this->mydb->execsql("SELECT * FROM `cms_comment` where cid=1 limit 1"); 
+if (!empty($resultSet[0])){
+	$this->cout['cms_comment'] = $resultSet[0];
+				$this->cout['cms_comment']['shw_content'] = stripcslashes($this->cout['cms_comment']['shw_content']);
+					
+}else{
+	$this->cout['cms_comment'] = array();
+}           
+
+{$cout.cms_comment.id}
+{$cout.cms_comment.shw_cid}
+{$cout.cms_comment.shw_lid}
+{$cout.cms_comment.shw_title}
+{$cout.cms_comment.shw_content}
+{$cout.cms_comment.mgr_status}
+{$cout.cms_comment.log_user}
+{$cout.cms_comment.log_time}
+
+    
+<!-- cms_recruit需要转义字段列表-->
+$resultSet = $this->mydb->execsql("SELECT * FROM `cms_recruit` where mgr_status =1 order by mgr_sort desc limit 6");
+if (sizeof($resultSet)>0) foreach ($resultSet as $key => $value) {
+    $value['shw_content'] = stripcslashes($value['shw_content']);
+    $value['shw_intro'] = stripcslashes($value['shw_intro']);
+    $this->cout['cms_recruit'][] = $value;
+  }
+
+{section name=i loop=$cout.cms_recruit}
+<li><a href="/index.php?act=recruit.info&id={$cout.cms_recruit[i].id}" class="left">{$cout.cms_recruit[i].shw_title}</a><span class="right">{$cout.cms_recruit[i].log_time|date_format:"%Y-%m-%d"}</span></li>
+{$cout.cms_recruit[i].id}
+{$cout.cms_recruit[i].cid}
+{$cout.cms_recruit[i].shw_title|truncate:50:''}
+{$cout.cms_recruit[i].shw_sex}
+{$cout.cms_recruit[i].shw_age}
+{$cout.cms_recruit[i].shw_money}
+{$cout.cms_recruit[i].shw_lage}
+{$cout.cms_recruit[i].shw_num}
+{$cout.cms_recruit[i].shw_place|truncate:50:''}
+{$cout.cms_recruit[i].shw_loger}
+{$cout.cms_recruit[i].shw_orders}
+{$cout.cms_recruit[i].shw_content|truncate:50:''}
+{$cout.cms_recruit[i].shw_intro|truncate:50:''}
+{$cout.cms_recruit[i].mgr_sort}
+{$cout.cms_recruit[i].mgr_status}
+{$cout.cms_recruit[i].log_user|truncate:50:''}
+{$cout.cms_recruit[i].log_time}
+{/section}
+
+<!-- 单条显示cms_recruit内容-->
+$resultSet=$this->mydb->execsql("SELECT * FROM `cms_recruit` where cid=1 limit 1"); 
+if (!empty($resultSet[0])){
+	$this->cout['cms_recruit'] = $resultSet[0];
+											$this->cout['cms_recruit']['shw_content'] = stripcslashes($this->cout['cms_recruit']['shw_content']);
+	$this->cout['cms_recruit']['shw_intro'] = stripcslashes($this->cout['cms_recruit']['shw_intro']);
+						
+}else{
+	$this->cout['cms_recruit'] = array();
+}           
+
+{$cout.cms_recruit.id}
+{$cout.cms_recruit.cid}
+{$cout.cms_recruit.shw_title}
+{$cout.cms_recruit.shw_sex}
+{$cout.cms_recruit.shw_age}
+{$cout.cms_recruit.shw_money}
+{$cout.cms_recruit.shw_lage}
+{$cout.cms_recruit.shw_num}
+{$cout.cms_recruit.shw_place}
+{$cout.cms_recruit.shw_loger}
+{$cout.cms_recruit.shw_orders}
+{$cout.cms_recruit.shw_content}
+{$cout.cms_recruit.shw_intro}
+{$cout.cms_recruit.mgr_sort}
+{$cout.cms_recruit.mgr_status}
+{$cout.cms_recruit.log_user}
+{$cout.cms_recruit.log_time}
+

@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<METAHTTP-EQUIV="Pragma" CONTENT="no-cache">
+<METAHTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+<METAHTTP-EQUIV="Expires" CONTENT="0">
+</head>
+
+<body>
+
+
+<link rel="stylesheet" type="text/css" href="/js/jquery.imgareaselect-0.9.10/css/imgareaselect-default.css" />
+<script src="/dwzjs/js/jquery-1.7.2.js" type="text/javascript"></script>
+<script type="text/javascript" src="/js/jquery.imgareaselect-0.9.10/scripts/jquery.imgareaselect.pack.js"></script>
+ 
+<script>
+{literal}
+$(function (){
+ 
+    $('img#photo').imgAreaSelect({
+        handles: true, 
+        aspectRatio : "{/literal}{$cout.aspectRatio}{literal}", //比例
+        fadeSpeed : 200,
+        maxWidth : 1000,
+        maxHeight : 1000,
+        minWidth : 100,
+        minHeight: 100,
+        outerOpacity : 0.3, //指定透明度
+        onSelectChange: function (img, selection){
+ 
+            //x1, y1 為左上角座標
+            //x2, y2 為右下表座標
+ 
+            $("[name=x1]").val(selection.x1)
+            $("[name=y1]").val(selection.y1)
+            $("[name=x2]").val(selection.x2)
+            $("[name=y2]").val(selection.y2)
+            $("[name=width]").val(selection.width)
+            $("[name=height]").val(selection.height)
+            }
+ 
+        });
+ 
+    })
+{/literal}
+</script>
+<img id="photo" src="{$cout.clipimages}">
+ 
+<form action="/b2wms.php?act=manage.clipimagesdo" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="x1" value="" />
+    <input type="hidden" name="y1" value="" />
+    <input type="hidden" name="x2" value="" />
+    <input type="hidden" name="y2" value="" />
+    <input type="hidden" name="width" value="">
+    <input type="hidden" name="height" value="">
+    <input type="hidden" name="imgfile" value="{$cout.clipimages}">
+    <input type="hidden" name="datafile" value="{$cout.clipimagesfile}">
+    <input type="submit" name="submit" value="图片保存" />请点击图片位置，拖动鼠标选取合适的图片框，点击图片保存将会保存选取框里的图像替换原图像
+</form>
+<br>可能会有浏览器缓存的因素使得图片不是裁切后最新的，请多刷新几次浏览器或者清空缓存
+</body>
+</html>

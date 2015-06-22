@@ -1,0 +1,93 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" type="text/css" href="resources/style.css">
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<script type="text/javascript" language="javascript" src="javascript/CleftPage/cleftpage.js"></script>
+<script language="JavaScript" type="text/javascript" src="javascript/My97DatePicker/WdatePicker.js"></script>
+
+<script language="JavaScript" type="text/javascript" src="javascript/myajax.js"></script>
+<script language="JavaScript" type="text/javascript" src="javascript/global.js"></script>
+
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<form id="formsearchform" name="formsearchform" method="get" action="/b2wms.php">
+<table width="100%" border="0" cellpadding="4" cellspacing="1" bgcolor="#CEDFF5" class="n_tab" id="searchform">
+    <input type="hidden" name="act" value="admin.shellOption">
+    <tr bgcolor="#FFFFFF"> 
+      <td width="100" height="20" align="right" nowrap bgcolor="#DFE8F6">系统DATA状态</td>
+      <td nowrap bgcolor="#DFE8F6"> &nbsp; </td>
+      <td width="100" align="right" nowrap bgcolor="#DFE8F6">&nbsp;</td>
+      <td nowrap bgcolor="#DFE8F6">
+      &nbsp;
+      </td>
+    </tr>
+    <tr bgcolor="#FFFFFF"> 
+      <td height="30" colspan="4" align="center" bgcolor="#DFE8F6">
+<input type="submit" name="Submit" value="查询"></td>
+    </tr>
+</table>
+
+<table width="100%" height="16" border="0" cellpadding="0" cellspacing="0" bgcolor="#CEDFF5">
+  <tr>
+    <td height="16" align="right" valign="middle" bgcolor="#DFE8F6"> <a href="javascript:void(0)" onClick="changeFormStatus()"> 
+      <img src="/resources/icon-grid.gif" width="16" height="16" border="0" align="absmiddle" title="隐藏/显示"/></a> 
+      <a href="javascript:void(0)" onClick="help()"><img src="/resources/gif/14.gif" width="16" height="16" border="0" align="absmiddle" title="帮助"/></a>
+    </td>
+  </tr>
+</table>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#CEDFF5" class="n_tab">
+  <tr>
+    <td> 
+      <table width="100%" border="0" cellpadding="3" cellspacing="1" style="border:1px solid #CEDFF5;" bgcolor="#DFE8F6">
+        <tr>
+				
+          <td height="30" align="center" nowrap bgcolor="#9FB7EC"><strong>返回结果</strong></td>
+          <td align="center" nowrap bgcolor="#9FB7EC"><strong>所在目录或服务</strong></td>
+          <td align="center" nowrap bgcolor="#9FB7EC"><strong>操作</strong></td>
+			</tr>
+
+    		{section name=i loop=$cout.file}
+    		
+		<tr>
+          <td height="30" align="center" nowrap bgcolor="#FFFFFF"> {$cout.file[i]}</td>
+          <td height="30" align="center" nowrap bgcolor="#FFFFFF">{$cout.dir}</td>
+          <td width="300" height="30" align="left" bgcolor="#FFFFFF">&nbsp;</td>
+          </tr>
+			{/section}
+			{section name=n loop=$cout.sensitivewordserver}
+    		
+				<tr>
+          <td height="30" align="center" nowrap bgcolor="#FFFFFF"> {$cout.sensitivewordserver[n]}</td>
+          <td height="30" align="center" nowrap bgcolor="#FFFFFF">{$cout.cmd2}</td>
+          <td width="300" height="30" align="left" bgcolor="#FFFFFF">&nbsp;</td>
+          </tr>
+			{/section}
+			{section name=m loop=$cout.Sen}
+    		
+				<tr>
+          <td height="30" align="center" nowrap bgcolor="#FFFFFF"> {$cout.Sen[m]}</td>
+          <td height="30" align="center" nowrap bgcolor="#FFFFFF">{$cout.cmd3}</td>
+          <td width="300" height="30" align="left" bgcolor="#FFFFFF">&nbsp;</td>
+          </tr>
+			{/section}
+			{section name=s loop=$cout.static_table}
+    		
+				<tr>
+          <td height="30" align="center" nowrap bgcolor="#FFFFFF"> {$cout.static_table[s]}</td>
+          <td height="30" align="center" nowrap bgcolor="#FFFFFF">{$cout.dirst}</td>
+          <td width="300" height="30" align="left" bgcolor="#FFFFFF">
+          	<a href="javascript:void(0);" onClick="javascript:return _q('/b2wms.php?act=admin.delDir&file={$cout.static_table[s].filename}')">删除</a>
+          </td>
+          </tr>
+			{/section}
+		</table>
+		</td>
+  </tr>
+</table>
+<div align="right">
+<script></script>
+</div>
+</form>
+<div id="help_body" style="display:none;">
+</div>
+</body>
+</html>

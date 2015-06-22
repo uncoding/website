@@ -1,0 +1,42 @@
+<!--详情1 p元素自适应宽度 start-->
+<div class="pageContent">
+<div class="pageFormContent" layoutH="56">
+<p> <label>SEO关键词：</label>
+      {$cout.vinfo.shw_keyword}
+   	
+     
+</p><p> <label>网站描述：</label>
+      {$cout.vinfo.shw_desc}
+   	
+     
+</p><p> <label>SEO静态站的访问域名：</label>
+      {$cout.vinfo.shw_host}
+   	
+     
+</p><p> <label>网站名称：</label>
+      {$cout.vinfo.shw_sitename}
+   	
+     
+</p><p> <label>静态页后缀名：</label>
+      {$cout.vinfo.shw_html}
+   	
+     
+</p><p> <label>最后更新人：</label>
+      {$cout.vinfo.log_user}
+   	
+     
+</p><p> <label>最后更新时间：</label>
+      {$cout.vinfo.log_time}
+   	
+     
+</p></div>
+<div class="formBar">
+     <ul>
+          <li><a target="dialog" mask="true"  width="800" height="480" class="button" href="/b2wms.php?act=seoglobalmgr.seoglobaladd&acttype=1&id={$smarty.request.id}"><span>更新</span></a></li>
+          <li>
+               <div class="button"><div class="buttonContent"><button type="button" class="close">关闭</button></div></div>
+          </li>
+     </ul>
+</div>
+</div>
+<!--详情1 end-->

@@ -1,0 +1,101 @@
+<!--前台start-->
+<!--日期显示年-月-日-->
+{$cout.vlist[i].log_time|date_format:"%Y-%m-%d"}
+{$cout.vinfo.log_time|date_format:"%Y-%m-%d"}
+
+<!--取列表页分类名称list页面中-->
+{$cout.comment_catatitle}
+
+<!--取分类导航，带链接，info页面中-->
+{$cout.comment_category[$cout.vinfo.cid]}
+
+<!--图片字段显示 -->
+ 
+
+<!--图片带水印显示 -->
+ 
+
+<!--根据分类id取分类数组里的显示名称 -->
+{$cout.comment_category[$cout.vinfo.cid]}
+
+<!--根据分类来取当前分类里的数量，多于一条显示列表，1条以内显示内容 -->
+{counter start=0 skip=1 print=false assign=categorynum1}
+{section name=i loop=$cout.vlist}
+{if $cout.vlist[i].cid == 1}
+{counter assign=categorynum1}
+{/if} 
+{/section} 
+{if $categorynum1 < 2}
+	{section name=i loop=$cout.vlist}
+	{if $cout.vlist[i].cid == 1}<p> {$cout.vlist[i].shw_intro}</p>{/if} 
+	{/section}
+{else}
+	{section name=i loop=$cout.vlist}
+	{if $cout.vlist[i].cid == 1}<div><a href="/index.php?act=comment.info&id={$cout.vlist[i].id}" title="{$cout.comment_category.1}" target="_blank" > {$cout.vlist[i].shw_title}</a></div>{/if} 
+	{/section}
+{/if} 
+
+
+<!--包含头，尾文件 -->
+{include file="default/inc/header.html"}
+{include file="default/inc/top.html"}
+{include file="default/inc/banner.html"}
+{include file="default/inc/nav.html"}
+{include file="default/inc/leftnav.html"}
+{include file="default/inc/left.html"}
+{include file="default/inc/footer.html"}
+
+<!-- 皮肤路径-->
+{$cout.skin}/
+
+<!-- 内容截取同时显示html代码-->
+{$cout.vinfo.shw_intro|truncate:850:'':0}
+<!-- 内容截取同时过滤html代码-->
+{$cout.vinfo.shw_intro|truncate:850:''}
+
+<!--上一页 下一页 翻页-->
+{if $cout.info.totalPageCount>0}
+{$cout.info.totalPageCount|page:$cout.info.size}
+{else}
+无更多内容
+{/if} 
+
+<!--浏览器tap栏加内容标题-->
+<title>{if $cout.title !=''}{$cout.title}-{/if}{$cout.companyname}</title>
+
+<!--上一篇 -->
+$sql1="SELECT * FROM cms_comment WHERE id>$id ORDER BY id ASC LIMIT 1 ";
+$resultSet3=$this->mydb->execsql($sql1);
+$this->cout['prev'] = !empty($resultSet3[0])?$resultSet3[0]:'';
+{if $cout.prev.id >0}<p><a href="/index.php?act=comment.info&id={$cout.prev.id}">上一篇：{$cout.prev.shw_title}</a></p>{/if}
+
+<!--下一篇 -->
+$sql1="SELECT * FROM cms_comment WHERE id<$id ORDER BY id desc LIMIT 1 ";
+$resultSet3=$this->mydb->execsql($sql1);
+$this->cout['next'] = !empty($resultSet3[0])?$resultSet3[0]:'';
+{if $cout.next.id >0}<p><a href="/index.php?act=comment.info&id={$cout.next.id}">下一篇：{$cout.next.shw_title}</a></p>{/if}
+
+<!-- 显示所在位置分类名称-->
+<li>所在位置： 首页 > 评论栏目 > {$cout.comment_category.1}</li>
+
+<!--对js代码的标注-->
+{literal}
+{/literal}
+
+<!-- 显示vlist列表-->
+<!--循环取vlist内容，生成列表显示 -->
+{section name=i loop=$cout.vlist}
+<li><a href="/index.php?act=comment.info&id={$cout.vlist[i].id}" class="left">{$cout.vlist[i].shw_title}</a><span class="right">{$cout.vlist[i].log_time|date_format:"%Y-%m-%d"}</span></li>
+{$cout.vlist[i].id}{$cout.vlist[i].shw_cid|truncate:50:''}{$cout.vlist[i].shw_lid|truncate:50:''}{$cout.vlist[i].shw_title|truncate:50:''}{$cout.vlist[i].shw_content|truncate:50:''}{$cout.vlist[i].mgr_status}{$cout.vlist[i].log_user|truncate:50:''}{$cout.vlist[i].log_time}{/section}
+
+
+<!-- 显示vinfo内容-->
+{$cout.vinfo.id}
+{$cout.vinfo.shw_cid}
+{$cout.vinfo.shw_lid}
+{$cout.vinfo.shw_title}
+{$cout.vinfo.shw_content}
+{$cout.vinfo.mgr_status}
+{$cout.vinfo.log_user}
+{$cout.vinfo.log_time}
+

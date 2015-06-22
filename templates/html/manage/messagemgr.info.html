@@ -1,0 +1,38 @@
+<!--详情1 p元素自适应宽度 start-->
+<div class="pageContent">
+<div class="pageFormContent" layoutH="56">
+<p> <label>姓名：</label>
+      {$cout.vinfo.name}
+   	
+     
+</p><p> <label>电话：</label>
+      {$cout.vinfo.phone}
+   	
+     
+</p><p> <label>邮箱：</label>
+      {$cout.vinfo.email}
+   	
+     
+</p><p> <label>留言主题：</label>
+      {$cout.vinfo.title}
+   	
+     
+</p><p> <label>留言内容：</label>
+      {$cout.vinfo.content}
+   	
+     
+</p><p> <label>添加时间：</label>
+      {$cout.vinfo.addDate}
+   	
+     
+</p></div>
+<div class="formBar">
+     <ul>
+          <li><a target="dialog" mask="true"  width="800" height="480" class="button" href="/b2wms.php?act=messagemgr.messageadd&acttype=1&id={$smarty.request.id}"><span>更新</span></a></li>
+          <li>
+               <div class="button"><div class="buttonContent"><button type="button" class="close">关闭</button></div></div>
+          </li>
+     </ul>
+</div>
+</div>
+<!--详情1 end-->

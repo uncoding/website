@@ -1,0 +1,62 @@
+
+<!--显示列表样式1 start-->
+<div class="pageContent" id="pagecontent">
+     <div id="w_list_print">
+     <table class="list" width="100%" targetType="navTab" asc="asc" desc="desc" layoutH="26">
+          <thead>
+<tr id="nav">
+<th width="100">导航标题</th>
+<th width="100">导航简介</th>
+<th width="100">导航图片上传</th>
+<th width="100">导航链接地址</th>
+<th width="100">所属分类</th>
+<th width="100">排序值</th>
+<th width="100">录入人</th>
+<th width="100">添加时间</th>
+<th width="30">状态</th>
+<th width="100">操作</th> 
+</tr>
+          </thead>
+          <tbody>
+               
+{section name=i loop=$cout.vlist}
+{assign var="cid" value=$cout.vlist[i].cid}
+{assign var="mgrstatus" value=$cout.vlist[i].mgr_status}
+<tr target="sid_user" >
+<td>{$cout.vlist[i].shw_title|truncate:20:''}</td>
+<td>{$cout.vlist[i].shw_intro|truncate:20:''}</td>
+<td>{if $cout.vlist[i].img_up !=''}<a class="edit" href="/b2wms.php?act=manage.clipimages&i={$cout.vlist[i].img_up}&r={$cout.nav_ratio[$cid]}" target="_blank"><img src="/html/upload/100_100_{$cout.vlist[i].img_up}" height="40" border="0" /></a>{/if}</td>
+<td>{$cout.vlist[i].shw_link}</td>
+<td>{if $cid==0}一级分类{else}{$cout.nav_category[$cid]}{/if}</td>
+<td>{$cout.vlist[i].mgr_sort|truncate:20:''}</td>
+<td>{$cout.vlist[i].log_user|truncate:20:''}</td>
+<td>{$cout.vlist[i].log_time|truncate:20:''}</td>
+<td>{$cout.mgr_status[$mgrstatus]}</td>
+ 
+<td width="100">
+<a target="ajaxTodo" href="/b2wms.php?act=navmgr.navaddback&acttype=3&id={$cout.vlist[i].id}" class="btnEdit" >修改</a>
+</td>              
+</tr>
+{/section}
+          </tbody>
+     </table>
+     </div>
+     <div class="panelBar" >
+          <div class="pages">
+               <span>显示</span>
+               <select name="numPerPage" onchange="navTabPageBreak({literal}{numPerPage:this.value}{/literal})">
+                    <option value="20" {if $cout.info.size ==20}selected{/if}>20</option>
+                    <option value="50" {if $cout.info.size ==50}selected{/if}>50</option>
+                    <option value="100" {if $cout.info.size ==100}selected{/if}>100</option>
+                    <option value="200" {if $cout.info.size ==200}selected{/if}>200</option>
+                    {if $cout.info.size >200}
+                    <option value="$cout.info.size" selected>{$cout.info.size}</option>
+                    {/if}
+               </select>
+               <span>条，共{$cout.info.totalCount}条</span>
+          </div>
+          <div class="pagination" targetType="navTab" totalCount="{$cout.info.totalCount}" numPerPage="{$cout.info.size}" pageNumShown="10" currentPage="{$cout.info.nowPage}"></div>
+
+     </div>
+</div>
+<!--显示列表样式1 end-->

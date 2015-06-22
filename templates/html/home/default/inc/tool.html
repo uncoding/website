@@ -1,0 +1,10 @@
+<div id="tool">
+   <ul class="toollist">
+      {section name=i loop=$cout.bttons}
+          <li><a  href="{if $smarty.section.i.index == 1 }tel:{/if}{$cout.bttons[i].shw_link}"><img src="/html/upload/{$cout.bttons[i].img_up}" >
+      <p>{$cout.bttons[i].shw_title}</p>
+      </a></li>
+    {/section}
+
+  </ul>
+</div>
