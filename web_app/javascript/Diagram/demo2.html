@@ -1,0 +1,264 @@
+<html>
+<head>
+<title>Analytics（分析）</title>
+<meta http-equiv="Expires" content="now" />
+<meta http-equiv="pragma" content="no-cache" />
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<script language="JavaScript">
+<!--
+var xdata = new Object;
+xdata.rtitle = 'flash报表演示';
+xdata.ntitle = '水平标题';
+xdata.toptitle = "表内标题";
+xdata.vtitle = '纵向标题';
+xdata.vtitle2 = '纵向右边标题';
+xdata.cnames = '日期|' + xdata.vtitle + '|' + xdata.vtitle2 + '|测试一下';
+
+xdata.data = new Array();
+
+xdata.data[0]=new Array();
+xdata.data[0]['t'] = '星期日';
+xdata.data[0]['d'] = new Array();
+xdata.data[0]['d'][0] = '10';
+xdata.data[0]['d'][1] = '20';
+xdata.data[0]['d'][2] = '30';
+
+xdata.data[1]=new Array();
+xdata.data[1]['t'] = '星期一';
+xdata.data[1]['d'] = new Array();
+xdata.data[1]['d'][0] = '20';
+xdata.data[1]['d'][1] = '30';
+xdata.data[1]['d'][2] = '40';
+
+xdata.data[2]=new Array();
+xdata.data[2]['t'] = '星期二';
+xdata.data[2]['d'] = new Array();
+xdata.data[2]['d'][0] = '30';
+xdata.data[2]['d'][1] = '40';
+xdata.data[2]['d'][2] = '50';
+
+xdata.data[3]=new Array();
+xdata.data[3]['t'] = '星期三';
+xdata.data[3]['d'] = new Array();
+xdata.data[3]['d'][0] = '40';
+xdata.data[3]['d'][1] = '50';
+xdata.data[3]['d'][2] = '60';
+
+xdata.data[4]=new Array();
+xdata.data[4]['t'] = '星期四';
+xdata.data[4]['d'] = new Array();
+xdata.data[4]['d'][0] = '60';
+xdata.data[4]['d'][1] = '30';
+xdata.data[4]['d'][2] = '40';
+
+xdata.data[5]=new Array();
+xdata.data[5]['t'] = '星期五';
+xdata.data[5]['d'] = new Array();
+xdata.data[5]['d'][0] = '60';
+xdata.data[5]['d'][1] = '50';
+xdata.data[5]['d'][2] = '30';
+
+xdata.data[6]=new Array();
+xdata.data[6]['t'] = '星期六';
+xdata.data[6]['d'] = new Array();
+xdata.data[6]['d'][0] = '20';
+xdata.data[6]['d'][1] = '30';
+xdata.data[6]['d'][2] = '70';
+//-->
+</script>
+
+<script>
+<!--
+function uErrorHandler() {
+   return true;
+}
+// window.onerror = uErrorHandler;
+
+if(typeof HTMLElement!="undefined" && !HTMLElement.prototype.insertAdjacentElement)
+{
+	HTMLElement.prototype.insertAdjacentElement = function(where,parsedNode)
+	{
+		switch (where)
+		{
+			case 'beforeBegin':
+				this.parentNode.insertBefore(parsedNode,this)
+				break;
+			case 'afterBegin':
+				this.insertBefore(parsedNode,this.firstChild);
+				break;
+			case 'beforeEnd':
+				this.appendChild(parsedNode);
+				break;
+			case 'afterEnd':
+				if (this.nextSibling) this.parentNode.insertBefore(parsedNode,this.nextSibling);
+				else this.parentNode.appendChild(parsedNode);
+				break;
+		}
+	}
+
+	HTMLElement.prototype.insertAdjacentHTML = function (where,htmlStr)
+	{
+		var r = this.ownerDocument.createRange();
+		r.setStartBefore(this);
+		var parsedHTML = r.createContextualFragment(htmlStr);
+		this.insertAdjacentElement(where,parsedHTML)
+	}
+
+
+	HTMLElement.prototype.insertAdjacentText = function (where,txtStr)
+	{
+		var parsedText = document.createTextNode(txtStr)
+		this.insertAdjacentElement(where,parsedText)
+	}
+}
+
+function MyInsertHTML(mye, html, where)
+{
+	if (!mye || mye==null) return;
+	if (!where || where=="" || where==null) where='beforeEnd';
+	if (!html || html=="" || html==null) html='<b><font color="green">内容为空，请</font></b><span class="linkstyle" onclick="GoBack();">返回</span>';
+	//if (isIE)
+	mye.insertAdjacentHTML(where, html);
+	//if (isNav)
+		
+}
+
+function writeFlash(pid, xdata, gtypes, width, height, fsize)
+{
+	var mye;
+	if (typeof(xdata)!='object') return;
+	if (document.getElementById)
+		mye = document.getElementById(pid);
+	else if (document.all)
+		mye = eval("document.all."+pid);
+	if (!mye) return;
+	var flash = GetFlash(xdata, gtypes, width, height, fsize);
+	// mye.innerText = flash;//alert(flash);
+	MyInsertHTML(mye, flash);
+}
+
+function GetFlash(xdata, gtypes, width, height, fsize)
+{
+	/* width="350" height="225" width="600" height="275" UrchinGraphMini*/
+	/*  gtypes= ---line线形 ---bar拄装图 ---mline多线形 ---pie饼图 ---fun横斜拄 ---hbar 纵向拄装图 */
+	/*	xdata : 显示的数据, 格式是: 每行分割用\n；每列分隔用\t
+		toptitle : 图形顶部标题
+		rtitle: 图形子标题
+		ntitle: 水平标题
+		vtitle: 纵向标题
+		vtitle2: 纵向右边标题
+		cname: 列名
+	*/
+	var flash = '';
+	if (fsize==1) flash = 'UrchinGraphMini.swf';
+	else flash = 'UrchinGraph.swf';
+	if (typeof(xdata)!='object') return;
+	if (typeof(xdata.data)!='object') return;
+	var data = '';
+	for (var ii=0;ii<xdata.data.length;ii++)
+	{
+		data += xdata.data[ii]['t'];
+		for (var nn=0; nn<xdata.data[ii]['d'].length; nn++)
+		{
+			data += "\\t" + xdata.data[ii]['d'][nn];
+		}
+		data += "\\n";
+	}
+
+	if (typeof(width)!='number' || typeof(height)!='number')
+	{
+		width = 350;
+		height = 225;
+	}
+
+	var str = '<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" ' 
+			  + ' codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0" '
+			  + ' width="'+width+'" height="'+height+'" align="middle"> '
+			  +'<param name="allowScriptAccess" value="sameDomain" />'
+			  +'<param name="movie" value="'+flash+'" />'
+			  +'<param name="quality" value="high" />'
+			  +'<param name="bgcolor" value="#ffffff" />'
+			  +'<param name="wmode" value="transparent" />'
+			  +'<param name="FlashVars" value="ntitle='+xdata.ntitle+'&toggle=全部显示|全部隐藏'
+			  + '&vtitle='+xdata.vtitle+'&vtitle2='+xdata.vtitle2+'&cnames='+xdata.cnames+'&datatype=20'
+			  + '&rtitle='+xdata.rtitle+'&fsize=1&gtypes='+gtypes+'&uloc=cn|$|0|2&toptitle='+xdata.toptitle
+			  + '&total=&xdata='+data+'" />'
+			  +'<embed src="'+flash+'" quality="high" bgcolor="#ffffff" width='+width+' height='+height+' name="UrchinGraph" align="middle" wmode="transparent" allowScriptAccess="sameDomain" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer"  FlashVars="ntitle='+xdata.ntitle+'&toggle=全部显示|全部隐藏'
+			  + '&vtitle='+xdata.vtitle+'&vtitle2='+xdata.vtitle2+'&cnames='+xdata.cnames+'&datatype=20'
+			  + '&rtitle='+xdata.rtitle+'&fsize=1&gtypes='+gtypes+'&uloc=cn|$|0|2&toptitle='+xdata.toptitle
+			  + '&total=&xdata='+data+'" />'
+			  +'</object>';
+	return str;
+}
+
+function writeTable(pid, xdata, width)
+{
+	var mye;
+	if (typeof(xdata)!='object' || typeof(xdata.data)!='object' || typeof(xdata.cnames)!='string') return;
+
+	if (document.getElementById)
+		mye = document.getElementById(pid);
+	else if (document.all)
+		mye = eval("document.all."+pid);
+	if (!mye) return;
+
+	if (!width || width=="" || width==null) width='96%';
+	var data = '<br /><br />' + '<table border="0" cellspacing="1" cellpadding="0" bgcolor="#BBBBBB" width="' + width + '"><tr bgcolor="#eeeeee">';
+
+	var field = xdata.cnames.split("|");
+	for (var ii=0; ii<field.length; ii++)
+	{
+		if (ii==0)
+			field[ii] = '';
+		data += '<td align="center" height="20">&nbsp;' + field[ii] + '&nbsp;</td>';
+	}
+	data += "</tr>";
+
+	for (var ii=0;ii<xdata.data.length;ii++)
+	{
+		data += '<tr bgcolor="#ffffff" onmouseover="this.style.backgroundColor=\'#EEF2FD\'" onmouseout="this.style.backgroundColor=\'#FFFFFF\'" onclick=\"HighlightTr(this)\"><td align="center" height="20">&nbsp;' + xdata.data[ii]['t'] + '&nbsp;</td>';
+		for (var nn=0; nn<xdata.data[ii]['d'].length; nn++)
+			data += '<td align="center">&nbsp;' + xdata.data[ii]['d'][nn] + '&nbsp;</td>';
+		data += "</tr>";
+	}
+	data += "</table>"
+
+	mye.insertAdjacentHTML("beforeEnd",data);
+}
+
+function HighlightTr(obj)
+{
+	var style_origin = '';
+	var style_new = '2pt solid #aaaaaa';
+	if (obj.childNodes[0].style.borderLeft=="" || obj.childNodes[0].style.borderLeft=="medium none")
+		style = style_new;
+	else
+		style = style_origin;
+
+	obj.childNodes[0].style.borderLeft=style;
+	for(i=0;i<obj.childNodes.length;i++)
+	{
+		obj.childNodes[i].style.borderTop=style;
+		obj.childNodes[i].style.borderBottom=style;
+	}
+	obj.childNodes[i-1].style.borderRight=style;
+}
+-->
+</script>
+
+<script language="JavaScript">
+<!--
+function nOnLoad() {
+parent.writeFlash('content_html', xdata, 'line|bar|mline|pie|fun|hbar', 600, 275, 2);
+parent.writeTable('content_html', xdata); 
+}
+window.onload = nOnLoad;
+//-->
+</script>
+
+</head>
+<body>
+<div id="content_html"></div>
+</body>
+</html>

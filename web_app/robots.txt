@@ -1,0 +1,7 @@
+User-agent: *
+
+Disallow:/dwzjs/
+Disallow:/javascript/
+Disallow:/js/
+
+Sitemap: /html/sitemap.xml
